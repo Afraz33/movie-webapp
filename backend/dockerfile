@@ -1,0 +1,17 @@
+# Use node image
+FROM node:14-alpine
+
+# Set working directory for the backend
+WORKDIR /app/backend
+
+# Copy the entire backend directory
+COPY . ./
+
+# Install dependencies
+RUN npm install
+
+# Expose port 8000 (assuming this is the correct port for your backend)
+EXPOSE 8000
+
+# Command to start the backend
+CMD ["npm", "start"]

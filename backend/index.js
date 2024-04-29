@@ -1,34 +1,35 @@
+//  ===============> Importing modules for project setup  <================
 const express = require("express");
 const colors = require("colors");
 const dotenv = require("dotenv").config;
-// const connectDB = require("./config/database");
-// const sentimentRouter = require("./routes/sentimentRouter");
-// const expertRouter = require("./routes/expertSentimentRouter");
-// const focalPersonRoutes = require("./routes/focalPersonRoutes");
-// const announcementRoutes = require("./routes/announcementRoutes");
+const cors = require("cors");
+const connectDB = require("./config/database");
 
-// connectDB();
+//  ===============> Importing user routes <================
+const movieRoutes = require("./routes/movieRoutes");
+const reviewRoutes = require("./routes/reviewRoutes");
+const authRoutes = require("./routes/authRoutes");
+
+//Connecting to the database
+connectDB();
+
+//Initializing express app
 const app = express();
 
-const port = 8000;
+//Setting up port
+const port = process.env.PORT || 8000;
 
-var cors = require("cors");
-
+//Middlewares for express app
 app.use(cors());
 app.use(express.json());
-
 app.use(express.urlencoded({ extended: false }));
 
-// app.use("/api/users", require("./routes/userRoutes"));
-// app.use("/api/experts", require("./routes/expertRoutes"));
-// app.use("/api/focalperson", focalPersonRoutes);
-// app.use("/api/announcement", announcementRoutes);
-// app.use(sentimentRouter);
-// app.use("/experts", expertRouter);
-app.post("/", (req, res) => {
-  console.log("impressive");
-  return res.status(200).json({ message: "Request received" });
-});
+//Routes
+// app.use("/movies", movieRoutes);
+// app.use("/reviews", reviewRoutes);
+app.use("/auth", authRoutes);
+
+//Starting server
 app.listen(port, () => {
-  console.log(`App listening on port ${port}`);
+  console.log(`App listening on port ${port}`.green);
 });

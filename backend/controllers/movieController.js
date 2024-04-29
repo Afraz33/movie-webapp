@@ -13,9 +13,13 @@ const getAllMovies = async (req, res) => {
 
 //Controller function to search movies by title
 const searchMoviesByTitle = async (req, res) => {
-  const { title } = req.query.title;
+  const { title } = req.query;
   try {
     const moviesByTitle = await movieService.searchMoviesByTitle(title);
+
+    if (moviesByTitle === null) {
+      res.status(300).json({ message: "no movies found" });
+    }
     res.status(200).json(moviesByTitle);
   } catch (error) {
     res.status(500).json({ error: error.message });

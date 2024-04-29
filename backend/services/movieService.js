@@ -24,9 +24,8 @@ const searchMoviesByTitle = async (title) => {
       title: { $regex: title, $options: "i" },
     });
     if (moviesByTitle.length === 0) {
-      throw new Error("No movies found");
-    }
-    return moviesByTitle;
+      return null;
+    } else return moviesByTitle;
   } catch (error) {
     throw error;
   }

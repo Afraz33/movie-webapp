@@ -1,0 +1,17 @@
+# Use node image
+FROM node:14-alpine
+
+# Set working directory for the frontend
+WORKDIR /app/frontend
+
+# Copy the entire Vite project directory
+COPY . ./
+
+# Install dependencies
+RUN npm install
+
+
+EXPOSE 5000
+
+# Command to start the frontend
+CMD ["npm", "run", "dev"]

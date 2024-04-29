@@ -2,7 +2,7 @@
 FROM node:14-alpine
 
 # Set working directory for the backend
-WORKDIR /app/backend
+WORKDIR /app/movieapp_frontend
 
 # Copy the entire backend directory
 COPY . ./

@@ -1,4 +1,4 @@
-const userModel = require("../models/userModel");
+const Users = require("../models/userModel");
 
 //hash password before saving to database
 const bcrypt = require("bcrypt");
@@ -24,15 +24,16 @@ const createUser = async (userData) => {
     }
 
     //email is unique or not?
-    const existingEmail = await userModel.findOne({ email: userData.email });
+    const existingEmail = await Users.findOne({ email: userData.email });
     if (existingEmail) {
       throw new Error("Email already exists");
     }
 
     //userName is unique or not?
-    const existingUserName = await userModel.findOne({
+    const existingUserName = await Users.findOne({
       userName: userData.userName,
     });
+    // console.log(userName);
     if (existingUserName) {
       throw new Error("Username already exists");
     }
@@ -40,14 +41,15 @@ const createUser = async (userData) => {
     const hashedPassword = await bcrypt.hash(userData.password, 10);
 
     //save user to datavase
-    const user = new userModel({
+    const newUser = new Users({
       name: userData.name,
       userName: userData.userName,
       email: userData.email,
       password: hashedPassword,
     });
-
-    return newUser;
+    newUser.save().then((newUser) => {
+      return newUser;
+    });
   } catch (error) {
     throw error;
   }
@@ -56,7 +58,7 @@ const createUser = async (userData) => {
 const authenticateUser = async (email, password) => {
   try {
     //find if user exists with the provided email
-    const user = await userModel.findOne({ email });
+    const user = await Users.findOne({ email });
 
     if (!user) {
       throw new Error("User not found");

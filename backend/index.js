@@ -31,5 +31,5 @@ app.use("/auth", authRoutes);
 
 //Starting server
 app.listen(port, () => {
-  console.log(`App listening on port ${port}`.green);
+  console.log(`App listening on port ${port}`.white.underline);
 });

@@ -57,6 +57,10 @@ const createUser = async (userData) => {
 
 const authenticateUser = async (email, password) => {
   try {
+    if (!email || !password) {
+      throw new Error("Missing required fields");
+    }
+
     //find if user exists with the provided email
     const user = await Users.findOne({ email });
 
@@ -69,7 +73,7 @@ const authenticateUser = async (email, password) => {
     if (isPasswordMatch) {
       const token = jwt.sign(
         { userName: user.userName },
-        process.env.JWT_SECRET,
+        process.env.SECRET_KEY,
         { expiresIn: "24h" }
       );
 

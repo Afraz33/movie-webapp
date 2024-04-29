@@ -1,4 +1,4 @@
-const { createUser, authenticateUser } = require("../services/authService");
+const authService = require("../services/authService");
 
 //siging up as a new user
 const signup = async (req, res) => {
@@ -6,7 +6,7 @@ const signup = async (req, res) => {
     const { name, userName, email, password } = req.body;
 
     //createUser service function
-    const newUser = await createUser({
+    const newUser = await authService.createUser({
       name,
       userName,
       email,
@@ -28,7 +28,7 @@ const login = async (req, res) => {
     const { email, password } = req.body;
 
     //get user Details
-    const userDetails = await authenticateUser(email, password);
+    const userDetails = await authService.authenticateUser(email, password);
 
     res.status(200).json({
       message: "Login successful",
@@ -43,9 +43,7 @@ const login = async (req, res) => {
       res.status(401).json({ message: "Incorrect password" });
     } else {
       console.error("Error logging in:", error);
-      res
-        .status(500)
-        .json({ message: "Internal Server Error", error: error.message });
+      res.status(500).json({ message: error.message });
     }
   }
 };

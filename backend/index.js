@@ -25,7 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 //Routes
-// app.use("/movies", movieRoutes);
+app.use("/movies", movieRoutes);
 // app.use("/reviews", reviewRoutes);
 app.use("/auth", authRoutes);
 

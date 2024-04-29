@@ -87,6 +87,7 @@ const authenticateUser = async (email, password) => {
 };
 
 module.exports = {
+  verifyUser,
   createUser,
   authenticateUser,
 };

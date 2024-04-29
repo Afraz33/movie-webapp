@@ -1,7 +1,7 @@
 //  ===============> Importing modules for project setup  <================
 const express = require("express");
 const colors = require("colors");
-const dotenv = require("dotenv").config;
+const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./config/database");
 
@@ -10,16 +10,13 @@ const movieRoutes = require("./routes/movieRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
 const authRoutes = require("./routes/authRoutes");
 
-//Connecting to the database
+// Configurations
 connectDB();
-
-//Initializing express app
+dotenv.config();
 const app = express();
-
-//Setting up port
 const port = process.env.PORT || 8000;
 
-//Middlewares for express app
+// App Middlewares
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

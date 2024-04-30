@@ -13,21 +13,17 @@ const { verifyUser } = require("../middleware/authMiddleware");
 const reviewRoutes = require("express").Router();
 
 //Review routes
-reviewRoutes.post("/addReview", verifyUser, addReview);
-reviewRoutes.delete("/deleteReview/:reviewId", verifyUser, deleteReview);
-reviewRoutes.get(
-  "/movieReviews/:movieTitle",
-  verifyUser,
-  getAllReviewsForMovie
-);
+reviewRoutes.post("/", verifyUser, addReview);
+reviewRoutes.delete("/:reviewId", verifyUser, deleteReview);
+reviewRoutes.get("/movie/:movieTitle", verifyUser, getAllReviewsForMovie);
 
 reviewRoutes.get(
-  "/reviews/:movieTitle/:userName",
+  "/movie/:movieTitle/user/:userName",
   verifyUser,
   getAllReviewsForUserForMovie
 );
 
-reviewRoutes.get("/userReviews/:userName", verifyUser, getAllReviewsForUser);
-reviewRoutes.put("/updateReview/:reviewId", verifyUser, updateReview);
+reviewRoutes.get("/user/:userName", verifyUser, getAllReviewsForUser);
+reviewRoutes.put("/:reviewId", verifyUser, updateReview);
 
 module.exports = reviewRoutes;

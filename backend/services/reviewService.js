@@ -83,7 +83,7 @@ const updateReview = async (reviewId, reviewText) => {
     if (!reviewText) {
       throw new Error("Updated Review text required");
     }
-    console.log(reviewText);
+
     const updatedReviewData = await Reviews.findOneAndUpdate(
       { reviewId: reviewId },
       { reviewText: reviewText },

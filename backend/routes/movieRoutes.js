@@ -12,14 +12,14 @@ const { verifyUser } = require("../middleware/authMiddleware");
 const movieRoutes = require("express").Router();
 
 //movie routes
-movieRoutes.post("/addMovie", verifyUser, addMovie);
+movieRoutes.post("/", verifyUser, addMovie);
 
 // Route for deleting a movie by title
-movieRoutes.delete("/deleteMovie/:title", verifyUser, deleteMovie);
+movieRoutes.delete("/:title", verifyUser, deleteMovie);
 
 // Route for retrieving all movies
-movieRoutes.get("/getAllMovies", getAllMovies);
+movieRoutes.get("/", getAllMovies);
 
 // Route for searching movies by title
-movieRoutes.get("/searchMovies", searchMoviesByTitle);
+movieRoutes.get("/search", searchMoviesByTitle);
 module.exports = movieRoutes;

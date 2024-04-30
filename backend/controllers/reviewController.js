@@ -58,15 +58,15 @@ const getAllReviewsForUser = async (req, res) => {
 const updateReview = async (req, res) => {
   try {
     const { reviewId } = req.params;
-    const updatedReviewData = req.body;
+    const { reviewText } = req.body;
     const updatedReview = await reviewService.updateReview(
       reviewId,
-      updatedReviewData
+      reviewText
     );
     res.json(updatedReview);
   } catch (error) {
     console.error("Error updating review:", error);
-    res.status(500).json({ message: "Internal Server Error" });
+    res.status(500).json({ message: error.message });
   }
 };
 

@@ -57,7 +57,7 @@ const deleteMovie = async (title) => {
       throw new Error("title required");
     }
 
-    const deletedMovie = await Movies.findOneAndDelete(title);
+    const deletedMovie = await Movies.findOneAndDelete({ title: title });
 
     if (!deletedMovie) {
       throw new Error("Error deleating movie");

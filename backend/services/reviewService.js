@@ -75,15 +75,18 @@ const getAllReviewsForUser = async (userName) => {
 };
 
 // Function to update a review
-const updateReview = async (reviewId, updatedReview) => {
+const updateReview = async (reviewId, reviewText) => {
   try {
     if (!reviewId) {
       throw new Error("Review ID required");
     }
-
-    const updatedReviewData = await Reviews.findByIdAndUpdate(
-      reviewId,
-      updatedReview,
+    if (!reviewText) {
+      throw new Error("Updated Review text required");
+    }
+    console.log(reviewText);
+    const updatedReviewData = await Reviews.findOneAndUpdate(
+      { reviewId: reviewId },
+      { reviewText: reviewText },
       { new: true }
     );
     return updatedReviewData;
@@ -99,7 +102,9 @@ const deleteReview = async (reviewId) => {
       throw new Error("Review ID required");
     }
 
-    const deletedReview = await Reviews.findByIdAndDelete(reviewId);
+    const deletedReview = await Reviews.findOneAndDelete({
+      reviewId: reviewId,
+    });
     if (!deletedReview) {
       throw new Error("Error deleting review");
     }

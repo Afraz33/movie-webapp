@@ -39,7 +39,6 @@ const addMovie = async (req, res) => {
 
 // Controller function to delete a movie
 const deleteMovie = async (req, res) => {
-  console.log(req.params);
   const { title } = req.params;
   try {
     const deletedMovie = await movieService.deleteMovie(title);

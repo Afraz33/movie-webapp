@@ -1,0 +1,39 @@
+.allMoviesContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+/* .topMovies {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  column-gap: 40px;
+  row-gap: 30px;
+  padding: 20px;
+  padding-top: 0px;
+  height: 100%;
+  background-color: black;
+  width: 100%;
+  height: max-content;
+} */
+
+.swiper {
+  width: 100%;
+  height: 100%;
+  /* height: 500px; */
+}
+.swiperSlide {
+  width: 100%;
+  height: 100%;
+}
+/* @media screen and (max-width: 1209px) {
+  .topMovies {
+    grid-template-columns: auto auto auto auto;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .topMovies {
+    grid-template-columns: auto auto auto;
+  }
+} */

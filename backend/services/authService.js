@@ -77,7 +77,11 @@ const authenticateUser = async (email, password) => {
         { expiresIn: "24h" }
       );
 
-      return { token, userName: user.userName, email: user.email };
+      return {
+        token,
+        userName: user.userName,
+        email: user.email,
+      };
     } else {
       throw new Error("Incorrect password");
     }

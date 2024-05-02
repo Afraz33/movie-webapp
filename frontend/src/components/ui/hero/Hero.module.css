@@ -1,0 +1,93 @@
+/* Hero.module.css */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  column-gap: 60px;
+  row-gap: 40px;
+  padding: 40px 5%;
+}
+.hero > *:nth-child(3) {
+  grid-column-end: span 2;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 20;
+  width: 50.6%;
+  height: 80%;
+  background-color: rgba(216, 57, 57, 0.2);
+}
+
+.content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+}
+
+.title {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.topMovies {
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+  padding: 20px;
+  padding-top: 0px;
+  height: 100%;
+  background-color: black;
+  width: 30%;
+  height: 526px;
+  overflow-y: auto;
+}
+
+.movieCard {
+  min-height: 120px;
+  width: 100%;
+  background-color: rgb(16, 13, 13);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .title {
+    font-size: 2rem; /* Adjust the font size for smaller screens */
+  }
+}
+
+@media screen and (max-width: 1209px) {
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr;
+    /* flex-direction: column; */
+    row-gap: 40px;
+  }
+
+  .hero > *:nth-child(1) {
+    grid-column-end: span 2;
+  }
+  .hero > *:nth-child(2) {
+    grid-column-end: span 2;
+  }
+  .hero > *:nth-child(3) {
+    grid-column-end: span 2;
+  }
+
+  .topMovies {
+    flex-direction: row;
+    column-gap: 20px;
+    width: 100%;
+    height: 200px;
+  }
+
+  .title {
+    font-size: 2rem; /* Adjust the font size for smaller screens */
+  }
+}

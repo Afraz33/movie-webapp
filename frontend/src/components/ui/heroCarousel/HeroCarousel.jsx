@@ -13,6 +13,7 @@ import "swiper/css/scrollbar";
 import "swiper/css";
 import heroCarouselStyles from "./heroCarousel.module.css";
 
+import { carouselImages } from "../../common/data/images";
 function heroCarousel() {
   return (
     <Swiper
@@ -34,38 +35,26 @@ function heroCarousel() {
       // onSlideChange={() => console.log("slide change")}
       // onSwiper={(swiper) => console.log(swiper)}
     >
-      <SwiperSlide className={heroCarouselStyles.SwiperSlide}>
-        {" "}
-        <img
-          src="/images/hero_background.webP"
-          alt="Hero Image"
-          className={heroCarouselStyles.heroImage}
-        />
-        <div className={heroCarouselStyles.textOverlay}>
-          <div className={heroCarouselStyles.textContainer}>
-            <p className={heroCarouselStyles.movieTitle}>
-              The Inception by Leonardo di Caprio
-            </p>
-            <p className={heroCarouselStyles.watchTrailer}>Watch The trailer</p>
+      {carouselImages.map((carouselImage, i) => (
+        <SwiperSlide key={i}>
+          {" "}
+          <img
+            src={carouselImage.src}
+            alt="Hero Image"
+            className={heroCarouselStyles.heroImage}
+          />
+          <div className={heroCarouselStyles.textOverlay}>
+            <div className={heroCarouselStyles.textContainer}>
+              <p className={heroCarouselStyles.movieTitle}>
+                Batman : The Dark Knight Rises
+              </p>
+              <p className={heroCarouselStyles.watchTrailer}>
+                Watch The trailer
+              </p>
+            </div>
           </div>
-        </div>
-      </SwiperSlide>
-      <SwiperSlide>
-        {" "}
-        <img
-          src="/images/hero_batman.webp"
-          alt="Hero Image"
-          className={heroCarouselStyles.heroImage}
-        />
-        <div className={heroCarouselStyles.textOverlay}>
-          <div className={heroCarouselStyles.textContainer}>
-            <p className={heroCarouselStyles.movieTitle}>
-              Batman : The Dark Knight Rises
-            </p>
-            <p className={heroCarouselStyles.watchTrailer}>Watch The trailer</p>
-          </div>
-        </div>
-      </SwiperSlide>
+        </SwiperSlide>
+      ))}
       ...
     </Swiper>
   );

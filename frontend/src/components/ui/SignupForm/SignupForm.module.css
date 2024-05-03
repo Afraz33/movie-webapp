@@ -29,8 +29,7 @@
 
 input[type="text"],
 input[type="email"],
-input[type="password"],
-button {
+input[type="password"] {
   display: block;
   width: 100%;
   margin-bottom: 10px;
@@ -40,7 +39,7 @@ button {
   border-radius: 4px;
 }
 
-button {
+.signupButton {
   background-color: var(--primary-color);
   color: #fff;
   border: none;
@@ -62,16 +61,16 @@ button:hover {
   background-color: var(--secondary-color);
 }
 
-p {
+.haveAccount {
   text-align: center;
 }
 
-p a {
+.haveAccount a {
   color: #007bff;
   text-decoration: none;
 }
 
-p a:hover {
+.haveAccoun a:hover {
   text-decoration: underline;
 }
 

@@ -1,6 +1,7 @@
 import styles from "./MovieReviewsList.module.css";
 import MovieReviews from "../movieReviews/MovieReviews";
 import { IoMdAdd } from "react-icons/io";
+import { imagePictures } from "../../common/data/images";
 function MovieReviewsList() {
   return (
     <section className={styles.container}>

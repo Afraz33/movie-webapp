@@ -76,8 +76,10 @@ function LoginForm() {
           />
         </div>
 
-        <button type="submit">Login</button>
-        <p>
+        <button className={styles.loginButton} type="submit">
+          Login
+        </button>
+        <p className={styles.haveAccount}>
           Don't have an account? <Link to="/auth/register">Signup</Link>
         </p>
       </form>

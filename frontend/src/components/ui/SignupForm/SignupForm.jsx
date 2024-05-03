@@ -105,8 +105,10 @@ function SignUpForm() {
           />
         </div>
 
-        <button type="submit">Sign Up</button>
-        <p>
+        <button className={styles.signupButton} type="submit">
+          Sign Up
+        </button>
+        <p className={styles.haveAccount}>
           Have an account? <Link to="/auth/login">Log in</Link>
         </p>
       </form>

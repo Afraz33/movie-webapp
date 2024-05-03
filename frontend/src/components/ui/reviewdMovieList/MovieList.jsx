@@ -12,6 +12,8 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 // Import Swiper styles
 import "swiper/css";
+
+import { imagePictures } from "../../common/data/images";
 //project import
 
 import MovieCard from "../sideMovieCard/MovieCard";
@@ -29,10 +31,9 @@ function MovieList() {
         Most Reviewed
       </h3>
       <div className={movieListStyles.topMovies}>
-        <MovieCard />
-        <MovieCard />
-        <MovieCard />
-        <MovieCard />
+        {imagePictures.map((imagePicture, i) => (
+          <MovieCard key={i} imageSrc={imagePicture.src} />
+        ))}
       </div>
     </div>
   );

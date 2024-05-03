@@ -12,7 +12,7 @@ const { verifyUser } = require("../middleware/authMiddleware");
 const movieRoutes = require("express").Router();
 
 //movie routes
-movieRoutes.post("/", verifyUser, addMovie);
+movieRoutes.post("/", addMovie);
 
 // Route for deleting a movie by title
 movieRoutes.delete("/:title", verifyUser, deleteMovie);

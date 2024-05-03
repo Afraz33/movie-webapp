@@ -1,9 +1,9 @@
 import movieCardStyles from "./MovieCard.module.css";
 import { MdRateReview } from "react-icons/md";
-function MovieCard() {
+function MovieCard({ imageSrc }) {
   return (
     <div className={movieCardStyles.movieCard}>
-      <img className={movieCardStyles.movieImage} src="/images/avengers.webp" />
+      <img className={movieCardStyles.movieImage} src={imageSrc} />
       <div className={movieCardStyles.movieTextContainer}>
         <p className={movieCardStyles.movieTitle}>
           Batman : The Dark Knight Rises

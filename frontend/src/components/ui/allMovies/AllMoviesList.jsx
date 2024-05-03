@@ -17,7 +17,8 @@ import "swiper/css";
 //project import
 
 import MovieCard from "../movieCard/MovieCard";
-function MovieList() {
+
+function MovieList({ movies }) {
   const [slidesPerView, setSlidesPerView] = useState(5);
   useEffect(() => {
     const breakpoints = [
@@ -74,7 +75,7 @@ function MovieList() {
         // navigation
         pagination={{ clickable: true }}
         // scrollbar={{ draggable: true }}
-
+        centeredSlides={true}
         loop={true}
         autoplay={{ delay: 3000 }}
         // width={500}
@@ -82,34 +83,11 @@ function MovieList() {
         // onSlideChange={() => console.log("slide change")}
         // onSwiper={(swiper) => console.log(swiper)}
       >
-        <SwiperSlide className={AllMoviesListStyles.SwiperSlide}>
-          {" "}
-          <MovieCard />
-        </SwiperSlide>
-        <SwiperSlide className={AllMoviesListStyles.SwiperSlide}>
-          {" "}
-          <MovieCard />
-        </SwiperSlide>
-        <SwiperSlide className={AllMoviesListStyles.SwiperSlide}>
-          {" "}
-          <MovieCard />
-        </SwiperSlide>
-        <SwiperSlide className={AllMoviesListStyles.SwiperSlide}>
-          {" "}
-          <MovieCard />
-        </SwiperSlide>
-        <SwiperSlide className={AllMoviesListStyles.SwiperSlide}>
-          {" "}
-          <MovieCard />
-        </SwiperSlide>
-        <SwiperSlide className={AllMoviesListStyles.SwiperSlide}>
-          {" "}
-          <MovieCard />
-        </SwiperSlide>
-        <SwiperSlide className={AllMoviesListStyles.SwiperSlide}>
-          {" "}
-          <MovieCard />
-        </SwiperSlide>
+        {movies.map((movie, i) => (
+          <SwiperSlide key={i} className={AllMoviesListStyles.SwiperSlide}>
+            <MovieCard movie={movie} imageIndex={i} />
+          </SwiperSlide>
+        ))}
         {/* <MovieCard />
         <MovieCard />
         <MovieCard />

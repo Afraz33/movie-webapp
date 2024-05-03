@@ -53,11 +53,28 @@ function MovieList() {
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, Autoplay]}
         className={AllMoviesListStyles.swiper}
+        breakpoints={{
+          320: {
+            slidesPerView: 2,
+          },
+          540: {
+            slidesPerView: 2,
+          },
+          768: {
+            slidesPerView: 3,
+          },
+          1000: {
+            slidesPerView: 4,
+          },
+          1200: {
+            slidesPerView: 5,
+          },
+        }}
         // spaceBetween={50}
         // navigation
         pagination={{ clickable: true }}
         // scrollbar={{ draggable: true }}
-        slidesPerView={2}
+
         loop={true}
         autoplay={{ delay: 3000 }}
         // width={500}

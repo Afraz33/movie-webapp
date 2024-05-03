@@ -19,8 +19,12 @@ function heroCarousel() {
       modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
       className={heroCarouselStyles.swiper}
       // spaceBetween={50}
-      navigation
-      pagination={{ clickable: true }}
+      navigation={{}}
+      // breakpoints={{
+      //   320: { pagination: { clickable: false } },
+      //   768: { pagination: { clickable: true } },
+      // }}
+      // pagination={{ clickable: true }}
       scrollbar={{ draggable: true }}
       slidesPerView={1}
       loop={true}

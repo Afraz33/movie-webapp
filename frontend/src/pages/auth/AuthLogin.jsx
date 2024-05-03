@@ -1,7 +1,17 @@
+import LoginForm from "../../components/ui/LoginForm/LoginForm";
+import Footer from "../../components/ui/footer/Footer";
 function AuthLogin() {
   return (
-    <div>
-      <h2 style={{ color: "white" }}>Afraz Ahmed</h2>
+    <div
+      style={{
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        backgroundColor: "white",
+      }}
+    >
+      <LoginForm />
+      <Footer />
     </div>
   );
 }

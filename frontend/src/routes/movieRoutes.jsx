@@ -1,30 +1,17 @@
-// import { lazy } from "react";
+// AuthRoutes.jsx
 
-// // project import
-// // import Loadable from "common/components/Loadable";
-// // import MinimalLayout from "common/layout/MinimalLayout";
+import withLazy from "../components/common/Loadable";
 
-// // const AuthLogin = Loadable(lazy(() => import("pages/auth/login")));
-// // const AuthRegister = Loadable(lazy(() => import("pages/auth/register")));
+//Project Imports
+import AuthLayout from "../components/layouts/AuthLayout";
+const AuthLogin = withLazy(() => import("../pages/auth/AuthLogin"));
+const MovieInfo = withLazy(() => import("../pages/movie/MovieInfo"));
 
-// const AuthLogin = lazy(() => import("pages/auth/login"));
-// const AuthRegister = lazy(() => import("pages/auth/register"));
+const MovieRoutes = [
+  {
+    path: "/movie",
+    element: <MovieInfo />,
+  },
+];
 
-// // ==============================|| AUTH ROUTING ||============================== //
-
-// const LoginRoutes = {
-//   path: "/auth/",
-//   element: <MinimalLayout />,
-//   children: [
-//     {
-//       path: "login",
-//       element: <AuthLogin />,
-//     },
-//     {
-//       path: "register",
-//       element: <AuthRegister />,
-//     },
-//   ],
-// };
-
-// export default LoginRoutes;
+export default MovieRoutes;

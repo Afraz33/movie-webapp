@@ -1,0 +1,108 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  /* justify-content: center; */
+  align-items: center;
+  height: 100vh;
+  padding: 10px;
+  justify-content: center;
+}
+.logo {
+  background-color: var(--primary-color);
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.logo a {
+  color: var(--text-color);
+  font-size: 2.8rem;
+  text-decoration: none;
+}
+.form {
+  width: 400px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+button {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 12px;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+
+button {
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+.error {
+  color: red;
+  font-size: 14px;
+  font-weight: 400;
+}
+.notError {
+  color: white;
+  font-size: 14px;
+  font-weight: 400;
+}
+button:hover {
+  background-color: var(--secondary-color);
+}
+
+p {
+  text-align: center;
+}
+
+p a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+p a:hover {
+  text-decoration: underline;
+}
+
+.signUp {
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+.inputContainer {
+  margin-bottom: 10px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+input:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.inputFocused {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+@media screen and (max-width: 768px) {
+  .form {
+    width: 300px;
+  }
+}

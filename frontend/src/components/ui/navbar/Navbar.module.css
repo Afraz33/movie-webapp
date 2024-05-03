@@ -79,6 +79,7 @@
   border: none;
   cursor: pointer;
   border: 1px solid rgb(16, 13, 13);
+  text-decoration: none;
 }
 
 .signup:hover {
@@ -109,6 +110,14 @@
 
 .mobileSearch {
   display: none;
+}
+
+.watchList {
+  display: flex;
+  gap: 2px;
+  color: var(--primary-color);
+  align-items: center;
+  cursor: pointer;
 }
 @media screen and (max-width: 1013px) {
   .nav {
@@ -148,6 +157,9 @@
   .navSearchForm {
     width: 30%;
   }
+  .watchListText {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 540px) {
@@ -170,8 +182,10 @@
     align-items: center;
   }
 
+  .logo,
   .login,
   .signup {
     font-size: 1.4rem;
+    padding: 5px 10px;
   }
 }

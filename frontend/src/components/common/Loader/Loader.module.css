@@ -1,7 +1,15 @@
+.loaderContainer {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .shape {
   width: 40px;
   height: 40px;
-  color: orange;
+  color: var(--primary-color);
   background: linear-gradient(currentColor 0 0),
     linear-gradient(currentColor 0 0), linear-gradient(currentColor 0 0),
     linear-gradient(currentColor 0 0);

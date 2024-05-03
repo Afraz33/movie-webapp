@@ -2,7 +2,7 @@
   min-height: 150px;
   max-height: 200px;
   width: 100%;
-  background-color: rgb(16, 13, 13);
+  background-color: var(--tertiary-color);
   cursor: pointer;
   display: flex;
   column-gap: 10px;
@@ -33,7 +33,7 @@
   flex-direction: row;
   align-items: center;
   column-gap: 10px;
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 .reviews {

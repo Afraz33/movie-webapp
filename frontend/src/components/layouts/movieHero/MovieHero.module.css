@@ -1,0 +1,12 @@
+.MovieHeroContainer {
+  padding: 40px 5%;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  column-gap: 10px;
+}
+
+@media screen and (max-width: 1200px) {
+  .MovieHeroContainer {
+    grid-template-columns: 1fr;
+  }
+}

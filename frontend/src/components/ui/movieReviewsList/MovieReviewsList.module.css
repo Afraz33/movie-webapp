@@ -1,0 +1,40 @@
+.container {
+  padding: 10px 5%;
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+}
+
+.heading {
+  font-size: 2.8rem;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.reviewsList {
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  overflow-y: auto;
+}
+
+.addMovie {
+  background-color: var(--primary-color);
+  border-radius: 5px;
+  display: flex;
+  column-gap: 5px;
+  align-items: center;
+  border: none;
+  font-size: 1.6rem;
+  padding: 10px;
+  color: var(--text-color);
+  width: fit-content;
+  align-self: flex-end;
+  cursor: pointer;
+}
+
+.addMovie:hover {
+  background-color: var(--secondary-color);
+}

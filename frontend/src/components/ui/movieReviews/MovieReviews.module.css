@@ -1,0 +1,33 @@
+.container {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  color: var(--text-color);
+  border-bottom: 1px solid gray;
+  width: 80%;
+  margin: auto;
+}
+
+.reviewInfo {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.6rem;
+}
+
+.userName,
+.reviewDate {
+  color: var(--primary-color);
+  width: fit-content;
+}
+.reviewText {
+  width: 100%;
+  font-size: 1.4rem;
+}
+
+.reviewActions {
+  display: flex;
+  justify-content: end;
+  column-gap: 10px;
+}

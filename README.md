@@ -30,7 +30,7 @@ Before running the application, ensure you have Docker Desktop installed on your
 
 ## Usage
 
-To run the containers, use the following command:
+To run the containers, use the following command inside project directory:
 
 ```bash
 docker-compose up -d

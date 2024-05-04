@@ -83,6 +83,12 @@ function MovieList({ movies }) {
         // onSlideChange={() => console.log("slide change")}
         // onSwiper={(swiper) => console.log(swiper)}
       >
+        {movies.length === 0 && (
+          <div className={AllMoviesListStyles.noMovies}>
+            <h2>No Movies Exist</h2>
+            <p style={{ color: "gray" }}>Login to add movies</p>
+          </div>
+        )}
         {movies?.map((movie, i) => (
           <SwiperSlide key={i} className={AllMoviesListStyles.SwiperSlide}>
             <MovieCard movie={movie} imageIndex={i} />

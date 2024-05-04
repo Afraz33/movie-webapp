@@ -1,4 +1,7 @@
+//======> Model imports <=======
 const Reviews = require("../models/reviewModel");
+
+//Library to generate a unique id
 const uuid = require("uuid");
 
 const generateReviewId = () => {

@@ -4,7 +4,7 @@ import { imagePictures } from "../../common/data/images";
 import { useNavigate } from "react-router-dom";
 function MovieCard({ movie, imageIndex }) {
   const navigate = useNavigate();
-
+  imageIndex = imageIndex % imagePictures.length;
   //=======> handler functions <==========
   const handleClick = () => {
     const movieUrl = `/movie/${encodeURIComponent(movie.title)}`;

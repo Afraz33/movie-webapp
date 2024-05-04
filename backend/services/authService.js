@@ -1,3 +1,4 @@
+//======> Model imports <=======
 const Users = require("../models/userModel");
 
 //hash password before saving to database
@@ -6,6 +7,7 @@ const bcrypt = require("bcrypt");
 //for jwt authentication
 const jwt = require("jsonwebtoken");
 
+//functio to create a new user
 const createUser = async (userData) => {
   try {
     // Validations for all properties on data such as not null
@@ -33,7 +35,7 @@ const createUser = async (userData) => {
     const existingUserName = await Users.findOne({
       userName: userData.userName,
     });
-    // console.log(userName);
+
     if (existingUserName) {
       throw new Error("Username already exists");
     }
@@ -53,6 +55,7 @@ const createUser = async (userData) => {
   }
 };
 
+//function to authenticate user
 const authenticateUser = async (email, password) => {
   try {
     if (!email || !password) {

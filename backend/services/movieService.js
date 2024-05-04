@@ -1,5 +1,7 @@
+// ======> Model imports <=======
 const Movies = require("../models/movieModel");
 const Reviews = require("../models/reviewModel");
+
 // Function to fetch all movies
 const getAllMovies = async () => {
   try {

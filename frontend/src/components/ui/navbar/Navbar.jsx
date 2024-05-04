@@ -29,6 +29,13 @@ function Navbar() {
   const handleSearch = () => {
     navigate(`/movie/${encodeURIComponent(searchQuery)}`);
   };
+
+  const handleLogout = () => {
+    localStorage.clear();
+
+    navigate("/auth/login");
+  };
+
   return (
     <nav className={navbarStyles.nav}>
       <div className={navbarStyles.logo}>
@@ -67,7 +74,7 @@ function Navbar() {
               <p className={navbarStyles.watchListText}>Add Movie</p>
             </div>
             <p className={navbarStyles.userName}> {userName}</p>
-            <button onClick={handleLogin} className={navbarStyles.login}>
+            <button onClick={handleLogout} className={navbarStyles.login}>
               logout
             </button>
           </>

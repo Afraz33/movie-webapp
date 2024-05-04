@@ -1,9 +1,7 @@
-// AuthRoutes.jsx
-
+//lazy loading
 import withLazy from "../components/common/Loadable";
 
 //Project Imports
-import AuthLayout from "../components/layouts/AuthLayout";
 const AuthLogin = withLazy(() => import("../pages/auth/AuthLogin"));
 const AuthRegister = withLazy(() => import("../pages/auth/AuthRegister"));
 

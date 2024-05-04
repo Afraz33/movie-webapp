@@ -13,7 +13,7 @@ import "swiper/css/scrollbar";
 import "swiper/css";
 import heroCarouselStyles from "./heroCarousel.module.css";
 
-import { carouselImages } from "../../common/data/images";
+import { carouselData } from "../../common/data/images";
 function heroCarousel() {
   return (
     <Swiper
@@ -35,18 +35,18 @@ function heroCarousel() {
       // onSlideChange={() => console.log("slide change")}
       // onSwiper={(swiper) => console.log(swiper)}
     >
-      {carouselImages.map((carouselImage, i) => (
+      {carouselData.map((carouselItem, i) => (
         <SwiperSlide key={i}>
           {" "}
           <img
-            src={carouselImage.src}
+            src={carouselItem.src}
             alt="Hero Image"
             className={heroCarouselStyles.heroImage}
           />
           <div className={heroCarouselStyles.textOverlay}>
             <div className={heroCarouselStyles.textContainer}>
               <p className={heroCarouselStyles.movieTitle}>
-                Batman : The Dark Knight Rises
+                {carouselItem.title}
               </p>
               <p className={heroCarouselStyles.watchTrailer}>
                 Upcoming Movies in 2024

@@ -111,6 +111,7 @@ function LoginForm() {
             onFocus={handleFocus}
             onBlur={handleBlur}
             required
+            minLength={6}
           />
         </div>
 

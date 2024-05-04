@@ -1,17 +1,9 @@
 // project imports
 import withLazy from "../components/common/Loadable";
 
-// render - home
+// Home
 const Home = withLazy(() => import("../pages/home/Home"));
 
-const PublicRoutes = [
-  { path: "/", element: <Home /> },
-  //   children: [
-  //     {
-  //       path: "",
-  //       element: <Home />,
-  //     },
-  //   ],
-];
+const PublicRoutes = [{ path: "/", element: <Home /> }];
 
 export default PublicRoutes;

@@ -14,7 +14,7 @@
   --background-color: black;
   --primary-color: rgb(225, 29, 72);
   --secondary-color: rgb(136, 19, 55);
-  --tertiary-color : rgb(16, 13, 13);
+  --tertiary-color: rgb(16, 13, 13);
   --text-color: white;
 
   /* Apply font styles */
@@ -48,43 +48,45 @@ html {
   font-size: 62.5%;
 }
 
+/*     ======> Swiper CSS Styles <======= */
 .swiper-button-prev,
 .swiper-button-next {
   font-size: 18px;
   background-color: transparent;
   padding: 20px 20px;
   border: 1px solid white;
-  color: rgb(225, 29, 72);/
+  color: rgb(225, 29, 72);
 }
 .swiper-button-prev::after,
-.swiper-button-next::after{
+.swiper-button-next::after {
   font-size: 28px;
+  color: rgb(225, 29, 72);
 }
 
 .swiper-pagination-bullet {
-  background-color: white !important; /* Use !important to ensure it overrides any default styles */
+  background-color: white !important;
 }
 .swiper-pagination-bullet-active {
-  background-color: rgb(225, 29, 72) !important; /* Use !important to ensure it overrides any default styles */
+  background-color: rgb(225, 29, 72) !important;
 }
 
 /* OR */
 
 .swiper-pagination-progressbar {
-  background-color: rgb(225, 29, 72) !important; /* Use !important to ensure it overrides any default styles */
+  background-color: rgb(225, 29, 72) !important;
 }
-
 
 .swiper {
   z-index: 0;
 }
+
+/*     ======> Scroll bar CSS styles <======= */
 ::-webkit-scrollbar {
   width: 10px;
 }
 
 /* Color of the scrollbar track */
 ::-webkit-scrollbar-track {
-
   background: var(--background-color);
 }
 

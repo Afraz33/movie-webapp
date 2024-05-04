@@ -1,10 +1,12 @@
 import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./MovieReviewsList.module.css";
 import MovieReviews from "../movieReviews/MovieReviews";
 import { IoMdAdd } from "react-icons/io";
 
 import { imagePictures } from "../../common/data/images";
 function MovieReviewsList({ movieTitle }) {
+  const navigate = useNavigate();
   const [reviews, setReviews] = useState([]);
   const [isAddingReview, setIsAddingReview] = useState(false);
   const [newReviewText, setNewReviewText] = useState("");
@@ -77,12 +79,20 @@ function MovieReviewsList({ movieTitle }) {
     }
   };
 
+  const handleAddText = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/auth/login");
+      return;
+    }
+    setIsAddingReview(true);
+  };
+
   const handleAddReview = async () => {
     if (newReviewText.trim() === "") {
-      return; // Do not add empty reviews
+      return;
     }
 
-    // Add the new review
     try {
       const response = await fetch("http://localhost:8000/reviews", {
         method: "POST",
@@ -112,8 +122,16 @@ function MovieReviewsList({ movieTitle }) {
   };
   return (
     <section className={styles.container}>
-      <p className={styles.heading}>Reviews</p>
       <div className={styles.reviewsList}>
+        {reviews.length === 0 ? (
+          <div className={styles.noReviews}>
+            <h2>No Reviews</h2>
+            <p style={{ color: "gray" }}>Login to add reviews</p>
+          </div>
+        ) : (
+          <p className={styles.heading}>Reviews</p>
+        )}
+
         {reviews?.map((review, index) => (
           <MovieReviews
             onDelete={handleDeleteReview}
@@ -143,10 +161,7 @@ function MovieReviewsList({ movieTitle }) {
           </div>
         </div>
       ) : (
-        <button
-          className={styles.addMovie}
-          onClick={() => setIsAddingReview(true)}
-        >
+        <button className={styles.addMovie} onClick={handleAddText}>
           {" "}
           Add a review <IoMdAdd />
         </button>

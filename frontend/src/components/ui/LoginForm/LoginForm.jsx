@@ -3,6 +3,10 @@ import { useNavigate } from "react-router-dom";
 import styles from "./LoginForm.module.css";
 import { Link } from "react-router-dom";
 
+//toast
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 // LoginForm Component
 function LoginForm() {
   const navigate = useNavigate();
@@ -57,7 +61,7 @@ function LoginForm() {
 
       const data = await response.json();
       setAlert("Login Successful!");
-
+      notify();
       // Store user data in local storage
       localStorage.setItem("user name", data.userName);
       localStorage.setItem("email", data.email);
@@ -66,76 +70,85 @@ function LoginForm() {
       // Navigate to home page after successful login
       setTimeout(() => {
         navigate("/");
-      }, 1000);
+      }, 1200);
     } catch (error) {
       console.error("Login failed:", error.message);
       setAlert("An unexpected error occurred");
     }
   };
 
+  const notify = () => {
+    toast.success("Login Successful", {
+      position: "top-center",
+    });
+  };
+
   return (
-    <div className={styles.container}>
-      <div className={styles.logo}>
-        <Link to="/">Movify</Link>
+    <>
+      <div className={styles.container}>
+        <div className={styles.logo}>
+          <Link to="/">Movify</Link>
+        </div>
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <h2 className={styles.signUp}>Login to Movify</h2>
+          <p
+            className={
+              alert
+                ? alert === "Login Successful!"
+                  ? styles.success
+                  : styles.error
+                : styles.notError
+            }
+          >
+            {alert}
+          </p>
+
+          {/* Email input field */}
+          <div className={styles.inputContainer}>
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Enter your email"
+              value={formData.email}
+              onChange={handleChange}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+              required
+            />
+          </div>
+
+          {/* Password input field */}
+          <div className={styles.inputContainer}>
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Enter your password"
+              value={formData.password}
+              onChange={handleChange}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+              required
+              minLength={6}
+            />
+          </div>
+
+          {/* Login button */}
+          <button className={styles.loginButton} type="submit">
+            Login
+          </button>
+
+          {/* Signup link */}
+          <p className={styles.haveAccount}>
+            Don't have an account? <Link to="/auth/register">Signup</Link>
+          </p>
+        </form>
       </div>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <h2 className={styles.signUp}>Login to Movify</h2>
-        <p
-          className={
-            alert
-              ? alert === "Login Successful!"
-                ? styles.success
-                : styles.error
-              : styles.notError
-          }
-        >
-          {alert}
-        </p>
-
-        {/* Email input field */}
-        <div className={styles.inputContainer}>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Enter your email"
-            value={formData.email}
-            onChange={handleChange}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-            required
-          />
-        </div>
-
-        {/* Password input field */}
-        <div className={styles.inputContainer}>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Enter your password"
-            value={formData.password}
-            onChange={handleChange}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-            required
-            minLength={6}
-          />
-        </div>
-
-        {/* Login button */}
-        <button className={styles.loginButton} type="submit">
-          Login
-        </button>
-
-        {/* Signup link */}
-        <p className={styles.haveAccount}>
-          Don't have an account? <Link to="/auth/register">Signup</Link>
-        </p>
-      </form>
-    </div>
+      <ToastContainer autoClose={1000} toastClassName={styles.customToast} />
+    </>
   );
 }
 

@@ -72,6 +72,7 @@ function MovieList({ movies }) {
         }}
         pagination={{ clickable: true }}
         centeredSlides={true}
+        navigation
         loop={true}
         autoplay={{ delay: 3000 }}
       >

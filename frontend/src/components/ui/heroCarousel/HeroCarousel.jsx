@@ -19,7 +19,6 @@ function heroCarousel() {
     <Swiper
       modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
       className={heroCarouselStyles.swiper}
-      navigation={{}}
       scrollbar={{ draggable: true }}
       slidesPerView={1}
       loop={true}

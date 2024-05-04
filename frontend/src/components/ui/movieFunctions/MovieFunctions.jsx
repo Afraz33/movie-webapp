@@ -2,6 +2,9 @@ import { Link } from "react-router-dom";
 import styles from "./MovieFunctions.module.css";
 import { useNavigate } from "react-router-dom";
 
+//toast
+import { toast, ToastContainer } from "react-toastify";
+
 // MovieFunctions Component
 function MovieFunctions({ movieTitle }) {
   const navigate = useNavigate();
@@ -10,8 +13,10 @@ function MovieFunctions({ movieTitle }) {
   const handleNavigate = () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      alert("You need to login to add movies!");
-      navigate("/auth/login");
+      notifyInfo();
+      setTimeout(() => {
+        navigate("/auth/login");
+      }, 1500);
       return;
     }
     navigate("/movie/add");
@@ -21,8 +26,11 @@ function MovieFunctions({ movieTitle }) {
   const handleDelete = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      alert("You need to login to delete movies!");
-      navigate("/auth/login");
+      notifyInfo();
+      setTimeout(() => {
+        navigate("/auth/login");
+      }, 2000);
+
       return;
     }
     // Confirm deletion
@@ -42,8 +50,11 @@ function MovieFunctions({ movieTitle }) {
 
         if (response.ok) {
           // Movie deleted successfully
-          alert("Movie deleted successfully");
-          navigate("/");
+          notifySuccess();
+
+          setTimeout(() => {
+            navigate("/");
+          }, 2000);
         } else {
           const data = await response.json();
           // Failed to delete movie
@@ -57,17 +68,32 @@ function MovieFunctions({ movieTitle }) {
     }
   };
 
+  const notifyInfo = () => {
+    toast.info("You need to login first", {
+      position: "top-center",
+    });
+  };
+  const notifySuccess = () => {
+    toast.success("Movie Deleted", {
+      position: "top-center",
+    });
+  };
+
   return (
-    <div className={styles.container}>
-      {/* Button to navigate to add movie page */}
-      <button onClick={handleNavigate} className={styles.button}>
-        Add a movie
-      </button>
-      {/* Button to delete the movie */}
-      <button onClick={handleDelete} className={styles.button}>
-        Delete this movie
-      </button>
-    </div>
+    <>
+      <div className={styles.container}>
+        {/* Button to navigate to add movie page */}
+        <button onClick={handleNavigate} className={styles.button}>
+          Add a movie
+        </button>
+        {/* Button to delete the movie */}
+        <button onClick={handleDelete} className={styles.button}>
+          Delete this movie
+        </button>
+      </div>
+
+      <ToastContainer autoClose={1500} />
+    </>
   );
 }
 

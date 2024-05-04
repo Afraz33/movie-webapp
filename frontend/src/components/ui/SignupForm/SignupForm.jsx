@@ -3,6 +3,9 @@ import styles from "./SignupForm.module.css";
 import { Link, Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
+//toast
+import { toast, ToastContainer } from "react-toastify";
+
 function SignUpForm() {
   const navigate = useNavigate();
 
@@ -50,6 +53,7 @@ function SignUpForm() {
       if (data.error) {
         setAlert(data.error);
       } else if (data.user) {
+        notify();
         setAlert("Signup Successful");
         setTimeout(() => {
           navigate("/auth/login");
@@ -60,98 +64,105 @@ function SignUpForm() {
       setAlert("An unexpected error occurred");
     }
   };
-
+  const notify = () => {
+    toast.success("Signup Successful", {
+      position: "top-center",
+    });
+  };
   return (
-    <div className={styles.container}>
-      <div className={styles.logo}>
-        <Link to="/">Movify</Link>
-      </div>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <h2 className={styles.signUp}>Create Account</h2>
-        {/* Alert message */}
-        <p
-          className={
-            alert
-              ? alert === "Signup Successful"
-                ? styles.success
-                : styles.error
-              : styles.notError
-          }
-        >
-          {alert}!
-        </p>
-        {/* Username input */}
-        <div className={styles.inputContainer}>
-          <label htmlFor="userName">Username</label>
-          <input
-            type="text"
-            name="userName"
-            id="userName"
-            placeholder="Enter your username"
-            value={formData.userName}
-            onChange={handleChange}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-            required
-          />
+    <>
+      <div className={styles.container}>
+        <div className={styles.logo}>
+          <Link to="/">Movify</Link>
         </div>
-        {/* Name input */}
-        <div className={styles.inputContainer}>
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            placeholder="Enter your name"
-            value={formData.name}
-            onChange={handleChange}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-            required
-          />
-        </div>
-        {/* Email input */}
-        <div className={styles.inputContainer}>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Enter your email"
-            value={formData.email}
-            onChange={handleChange}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-            required
-          />
-        </div>
-        {/* Password input */}
-        <div className={styles.inputContainer}>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Enter your password"
-            value={formData.password}
-            onChange={handleChange}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-            required
-            minLength={6}
-          />
-        </div>
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <h2 className={styles.signUp}>Create Account</h2>
+          {/* Alert message */}
+          <p
+            className={
+              alert
+                ? alert === "Signup Successful"
+                  ? styles.success
+                  : styles.error
+                : styles.notError
+            }
+          >
+            {alert}!
+          </p>
+          {/* Username input */}
+          <div className={styles.inputContainer}>
+            <label htmlFor="userName">Username</label>
+            <input
+              type="text"
+              name="userName"
+              id="userName"
+              placeholder="Enter your username"
+              value={formData.userName}
+              onChange={handleChange}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+              required
+            />
+          </div>
+          {/* Name input */}
+          <div className={styles.inputContainer}>
+            <label htmlFor="name">Name</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Enter your name"
+              value={formData.name}
+              onChange={handleChange}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+              required
+            />
+          </div>
+          {/* Email input */}
+          <div className={styles.inputContainer}>
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Enter your email"
+              value={formData.email}
+              onChange={handleChange}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+              required
+            />
+          </div>
+          {/* Password input */}
+          <div className={styles.inputContainer}>
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Enter your password"
+              value={formData.password}
+              onChange={handleChange}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+              required
+              minLength={6}
+            />
+          </div>
 
-        {/* Submit button */}
-        <button className={styles.signupButton} type="submit">
-          Sign Up
-        </button>
-        {/* Link to login page */}
-        <p className={styles.haveAccount}>
-          Have an account? <Link to="/auth/login">Log in</Link>
-        </p>
-      </form>
-    </div>
+          {/* Submit button */}
+          <button className={styles.signupButton} type="submit">
+            Sign Up
+          </button>
+          {/* Link to login page */}
+          <p className={styles.haveAccount}>
+            Have an account? <Link to="/auth/login">Log in</Link>
+          </p>
+        </form>
+      </div>
+      <ToastContainer autoClose={1000} />
+    </>
   );
 }
 

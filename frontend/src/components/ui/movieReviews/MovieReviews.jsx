@@ -4,6 +4,9 @@ import styles from "./MovieReviews.module.css";
 import { MdDelete } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 
+//toast
+import { toast, ToastContainer } from "react-toastify";
+
 // MovieReviews Component
 function MovieReviews({ review, onDelete, onUpdate }) {
   const token = localStorage.getItem("token");
@@ -18,8 +21,10 @@ function MovieReviews({ review, onDelete, onUpdate }) {
   // Function to handle review deletion
   const handleDelete = () => {
     if (!token) {
-      alert("You need to login to delete a review!");
-      navigate("/auth/login");
+      notifyInfo();
+      setTimeout(() => {
+        navigate("/auth/login");
+      }, 1500);
     } else {
       onDelete(review.reviewId);
     }
@@ -33,8 +38,10 @@ function MovieReviews({ review, onDelete, onUpdate }) {
   // Function to handle edit mode
   const handleEdit = () => {
     if (!token) {
-      alert("You need to login to edit a review!");
-      navigate("/auth/login");
+      notifyInfo();
+      setTimeout(() => {
+        navigate("/auth/login");
+      }, 1500);
     } else setIsEditing(true);
   };
 
@@ -55,46 +62,54 @@ function MovieReviews({ review, onDelete, onUpdate }) {
     setEditedReviewText(event.target.value);
   };
 
+  const notifyInfo = () => {
+    toast.info("You need to login first", {
+      position: "top-center",
+    });
+  };
   return (
-    <div className={styles.container}>
-      <div className={styles.reviewInfo}>
-        <p className={styles.userName}>{review.userName}</p>
-      </div>
-      {isEditing ? (
-        <textarea
-          className={styles.reviewTextEdit}
-          value={editedReviewText}
-          onChange={handleTextChange}
-        />
-      ) : (
-        <p className={styles.reviewText}>{review.reviewText}</p>
-      )}
-      {!isEditing ? (
-        userName === review.userName && (
-          <div className={styles.reviewActions}>
-            <MdDelete
-              className={styles.editIcon}
-              style={{ cursor: "pointer" }}
-              onClick={handleDelete}
-            />
-            <MdEdit
-              className={styles.editIcon}
-              style={{ cursor: "pointer" }}
-              onClick={handleEdit}
-            />
-          </div>
-        )
-      ) : (
-        <div className={styles.reviewActions}>
-          <button onClick={handleSave} className={styles.save}>
-            Save
-          </button>
-          <button onClick={handleCancel} className={styles.cancel}>
-            Cancel
-          </button>
+    <>
+      <div className={styles.container}>
+        <div className={styles.reviewInfo}>
+          <p className={styles.userName}>{review.userName}</p>
         </div>
-      )}
-    </div>
+        {isEditing ? (
+          <textarea
+            className={styles.reviewTextEdit}
+            value={editedReviewText}
+            onChange={handleTextChange}
+          />
+        ) : (
+          <p className={styles.reviewText}>{review.reviewText}</p>
+        )}
+        {!isEditing ? (
+          userName === review.userName && (
+            <div className={styles.reviewActions}>
+              <MdDelete
+                className={styles.editIcon}
+                style={{ cursor: "pointer" }}
+                onClick={handleDelete}
+              />
+              <MdEdit
+                className={styles.editIcon}
+                style={{ cursor: "pointer" }}
+                onClick={handleEdit}
+              />
+            </div>
+          )
+        ) : (
+          <div className={styles.reviewActions}>
+            <button onClick={handleSave} className={styles.save}>
+              Save
+            </button>
+            <button onClick={handleCancel} className={styles.cancel}>
+              Cancel
+            </button>
+          </div>
+        )}
+      </div>
+      <ToastContainer autoClose={2000} />
+    </>
   );
 }
 

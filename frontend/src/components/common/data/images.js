@@ -1,10 +1,10 @@
 const imagePictures = [
   { src: "/images/spiderman.webp" },
-  { src: "/images/fastnfurious.jpg" },
-  { src: "/images/deadpool.jpg" },
-  { src: "/images/transformers.jpg" },
-  { src: "/images/batman.jpg" },
-  { src: "/images/arrival.jpg" },
+  { src: "/images/fastnfurious.webp" },
+  { src: "/images/deadpool.webp" },
+  { src: "/images/transformers.webp" },
+  { src: "/images/batman.webp" },
+  { src: "/images/arrival.webp" },
 ];
 
 const carouselData = [
@@ -13,6 +13,6 @@ const carouselData = [
     title: "Inception by Leonardo DiCaprio",
   },
   { src: "/images/hero_batman.webp", title: "Batman: The Dark Knight" },
-  { src: "/images/hero_alien.jpg", title: "Alien vs Predator" },
+  { src: "/images/hero_alien.webp", title: "Alien vs Predator" },
 ];
 export { imagePictures, carouselData };

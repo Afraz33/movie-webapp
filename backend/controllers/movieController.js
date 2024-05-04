@@ -48,9 +48,21 @@ const deleteMovie = async (req, res) => {
   }
 };
 
+//controller function to get top reviewed movies
+async function getTopReviewedMovies(req, res) {
+  try {
+    const topReviewedMovies = await movieService.getTopReviewedMovies();
+
+    res.status(200).json({ topReviewedMovies });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
 module.exports = {
   getAllMovies,
   searchMoviesByTitle,
   addMovie,
   deleteMovie,
+  getTopReviewedMovies,
 };

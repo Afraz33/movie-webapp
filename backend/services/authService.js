@@ -47,9 +47,7 @@ const createUser = async (userData) => {
       email: userData.email,
       password: hashedPassword,
     });
-    newUser.save().then((newUser) => {
-      return newUser;
-    });
+    return await newUser.save();
   } catch (error) {
     throw error;
   }

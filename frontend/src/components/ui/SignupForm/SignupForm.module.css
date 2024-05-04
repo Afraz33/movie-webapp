@@ -40,6 +40,9 @@ input[type="password"] {
 }
 
 .signupButton {
+  padding: 10px;
+  font-size: 12px;
+  width: 100%;
   background-color: var(--primary-color);
   color: #fff;
   border: none;
@@ -51,6 +54,16 @@ input[type="password"] {
   color: red;
   font-size: 14px;
   font-weight: 400;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.success {
+  color: green;
+  font-size: 14px;
+  font-weight: 400;
+  width: fit-content;
+  margin: 0 auto;
 }
 .notError {
   color: white;

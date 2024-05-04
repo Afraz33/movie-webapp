@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import styles from "./SignUpForm.module.css";
+import styles from "./AddMovieForm.module.css";
 import { Link } from "react-router-dom";
-import { signUp } from "../../service/auth";
-function SignUpForm() {
+
+function AddMovieForm() {
   const [formData, setFormData] = useState({
-    userName: "",
-    name: "",
-    email: "",
-    password: "",
+    title: "",
+    description: "",
+    year: "",
   });
   const [alert, setAlert] = useState("");
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -29,7 +29,7 @@ function SignUpForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:8000/auth/signup`, {
+      const response = await fetch(`http://localhost:8000/movies`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -38,13 +38,13 @@ function SignUpForm() {
       });
       const data = await response.json();
       console.log(data);
-      if (data.error) {
-        setAlert(data.error);
-      } else if (data.user) {
-        setAlert("Signup Successful");
+      if (response.ok) {
+        setAlert("Movie added successfully");
+      } else {
+        setAlert(data.message || "Failed to add movie");
       }
     } catch (error) {
-      console.error("Sign up failed:", error.message);
+      console.error("Error adding movie:", error.message);
       setAlert("An unexpected error occurred");
     }
   };
@@ -55,26 +55,26 @@ function SignUpForm() {
         <Link to="/">Movify</Link>
       </div>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <h2 className={styles.signUp}>Create Account</h2>
+        <h2 className={styles.signUp}>Add a Movie</h2>
         <p
           className={
             alert
-              ? alert === "Signup Successful"
+              ? alert === "Movie added successfully"
                 ? styles.success
                 : styles.error
               : styles.notError
           }
         >
-          {alert}!
+          {alert}
         </p>
         <div className={styles.inputContainer}>
-          <label htmlFor="userName">Username</label>
+          <label htmlFor="title">Title</label>
           <input
             type="text"
-            name="userName"
-            id="userName"
-            placeholder="Enter your username"
-            value={formData.userName}
+            name="title"
+            id="title"
+            placeholder="Movie Title"
+            value={formData.title}
             onChange={handleChange}
             onFocus={handleFocus}
             onBlur={handleBlur}
@@ -82,57 +82,42 @@ function SignUpForm() {
           />
         </div>
         <div className={styles.inputContainer}>
-          <label htmlFor="name">Name</label>
+          <label htmlFor="description">Description</label>
+          <textarea
+            className={styles.textarea}
+            name="description"
+            id="description"
+            placeholder="Movie Description"
+            value={formData.description}
+            onChange={handleChange}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            required
+          />
+        </div>
+        <div className={styles.inputContainer}>
+          <label htmlFor="year">Year</label>
           <input
             type="text"
-            name="name"
-            id="name"
-            placeholder="Enter your name"
-            value={formData.name}
+            name="year"
+            id="year"
+            placeholder="Release Year"
+            value={formData.year}
             onChange={handleChange}
             onFocus={handleFocus}
             onBlur={handleBlur}
             required
           />
         </div>
-        <div className={styles.inputContainer}>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Enter your email"
-            value={formData.email}
-            onChange={handleChange}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-            required
-          />
-        </div>
-        <div className={styles.inputContainer}>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Enter your password"
-            value={formData.password}
-            onChange={handleChange}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-            required
-          />
-        </div>
-
         <button className={styles.signupButton} type="submit">
-          Sign Up
+          Add Movie
         </button>
         <p className={styles.haveAccount}>
-          Have an account? <Link to="/auth/login">Log in</Link>
+          <Link to="/">Back to Home</Link>
         </p>
       </form>
     </div>
   );
 }
 
-export default SignUpForm;
+export default AddMovieForm;

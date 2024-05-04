@@ -1,5 +1,5 @@
 .container {
-  padding: 10px 5%;
+  padding: 20px 5%;
   color: var(--text-color);
   display: flex;
   flex-direction: column;
@@ -37,4 +37,49 @@
 
 .addMovie:hover {
   background-color: var(--secondary-color);
+}
+.reviewTextEdit {
+  height: 70px;
+  padding: 10px;
+  font-size: 14px;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  resize: vertical; /* Allows vertical resizing */
+}
+
+.reviewTextEdit:focus {
+  outline: none; /* Removes the default focus outline */
+  border-color: var(--primary-color); /* Changes border color when focused */
+}
+
+.reviewActions {
+  display: flex;
+  justify-content: end;
+  column-gap: 10px;
+  align-items: first baseline;
+}
+
+.save,
+.cancel {
+  padding: 5px;
+  font-size: 12px;
+  width: fit-content;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.save,
+.cancel:hover {
+  background-color: var(--secondary-color);
+}
+
+.addReviewContainer {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
 }

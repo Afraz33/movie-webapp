@@ -49,7 +49,7 @@ function heroCarousel() {
                 Batman : The Dark Knight Rises
               </p>
               <p className={heroCarouselStyles.watchTrailer}>
-                Watch The trailer
+                Upcoming Movies in 2024
               </p>
             </div>
           </div>

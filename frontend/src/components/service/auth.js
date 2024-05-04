@@ -23,6 +23,14 @@ async function login(formData) {
       },
       body: JSON.stringify(formData),
     });
+    if (!response.ok) {
+      if (response.status === 404) {
+        throw new Error("User not found");
+      }
+      if (response.status === 401) {
+        throw new Error("Incorrect Password");
+      }
+    }
 
     return response.json();
   } catch (error) {

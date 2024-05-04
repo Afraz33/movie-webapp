@@ -13,10 +13,9 @@ const signup = async (req, res) => {
       password,
     });
 
-    if (newUser)
-      res
-        .status(201)
-        .json({ message: "User successfully created", user: newUser });
+    res
+      .status(201)
+      .json({ message: "User successfully created", user: newUser });
   } catch (error) {
     console.error("Error creating user:", error);
     res.status(500).json({ message: "User not created", error: error.message });

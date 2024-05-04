@@ -83,7 +83,7 @@ function MovieList({ movies }) {
         // onSlideChange={() => console.log("slide change")}
         // onSwiper={(swiper) => console.log(swiper)}
       >
-        {movies.map((movie, i) => (
+        {movies?.map((movie, i) => (
           <SwiperSlide key={i} className={AllMoviesListStyles.SwiperSlide}>
             <MovieCard movie={movie} imageIndex={i} />
           </SwiperSlide>

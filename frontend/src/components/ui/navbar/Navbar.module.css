@@ -81,6 +81,18 @@
   border: 1px solid rgb(16, 13, 13);
   text-decoration: none;
 }
+.userName {
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: block;
+  font-size: 1.8rem;
+  color: var(--text-color);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  border: 1px solid rgb(16, 13, 13);
+  text-decoration: none;
+}
 
 .signup:hover {
   background-color: rgb(22, 18, 18);
@@ -187,5 +199,28 @@
   .signup {
     font-size: 1.4rem;
     padding: 5px 10px;
+  }
+}
+
+.searchedMovies {
+  position: absolute;
+  top: 60px;
+  left: 25%;
+  z-index: 9999 !important;
+  width: 40%;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 1200px) {
+  .searchedMovies {
+    left: 25%;
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .searchedMovies {
+    left: 10%;
+    width: 80%;
   }
 }

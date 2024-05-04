@@ -1,15 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./LoginForm.module.css";
 import { Link } from "react-router-dom";
 import { login } from "../../service/auth";
+import { UserContext } from "../../../context/UserContext";
 function LoginForm() {
+  const { user, updateUser } = useContext(UserContext);
+
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     userName: "",
     name: "",
     email: "",
     password: "",
   });
-  const [error, setError] = useState("");
+  const [alert, setAlert] = useState("");
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -25,19 +30,42 @@ function LoginForm() {
   const handleBlur = (e) => {
     e.target.classList.remove(styles.inputFocused);
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await login(formData);
-      if (response.error) {
-        setError(response.error);
+      const response = await fetch(`http://localhost:8000/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        if (response.status === 404) {
+          setAlert("No user found");
+        } else if (response.status === 401) {
+          setAlert("Incorrect password");
+        } else {
+          setAlert("Unknown alert occurred");
+        }
+        return;
       }
-    } catch (error) {
-      console.error("Login failed:", error.message);
+
+      const data = await response.json();
+      setAlert("Login Successful!");
+
+      localStorage.setItem("user name", data.userName);
+      localStorage.setItem("email", data.email);
+      localStorage.setItem("token", data.token);
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+    } catch (alert) {
+      console.alert("Login failed:", alert.message);
+      setAlert("An unexpected alert occurred");
     }
   };
-
   return (
     <div className={styles.container}>
       <div className={styles.logo}>
@@ -45,7 +73,17 @@ function LoginForm() {
       </div>
       <form onSubmit={handleSubmit} className={styles.form}>
         <h2 className={styles.signUp}>Login to Movify</h2>
-        <p className={error ? styles.error : styles.notError}>{error}!</p>
+        <p
+          className={
+            alert
+              ? alert === "Login Successful!"
+                ? styles.success
+                : styles.error
+              : styles.notError
+          }
+        >
+          {alert}
+        </p>
 
         <div className={styles.inputContainer}>
           <label htmlFor="email">Email</label>

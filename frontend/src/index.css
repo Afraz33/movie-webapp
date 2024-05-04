@@ -75,6 +75,9 @@ html {
 }
 
 
+.swiper {
+  z-index: 0;
+}
 ::-webkit-scrollbar {
   width: 10px;
 }

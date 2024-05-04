@@ -6,10 +6,10 @@ const imagePictures = [
   { src: "/images/batman.jpg" },
   { src: "/images/arrival.jpg" },
 
-  //   { src: "/images/spiderman.webp" },
-  //   { src: "/images/fastnfurious.jpg" },
-  //   { src: "/images/deadpool.jpg" },
-  //   { src: "/images/transformers.jpg" },
+  { src: "/images/spiderman.webp" },
+  { src: "/images/fastnfurious.jpg" },
+  { src: "/images/deadpool.jpg" },
+  { src: "/images/transformers.jpg" },
   //   { src: "/images/batman.jpg" },
   //   { src: "/images/arrival.jpg" },
 

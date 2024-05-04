@@ -1,16 +1,27 @@
 import movieCardStyles from "./MovieCard.module.css";
 import { MdRateReview } from "react-icons/md";
-function MovieCard({ imageSrc }) {
+import { imagePictures } from "../../common/data/images";
+import { useNavigate } from "react-router-dom";
+function MovieCard({ movie, imageIndex }) {
+  const navigate = useNavigate();
+
+  //=======> handler functions <==========
+  const handleClick = () => {
+    const movieUrl = `/movie/${encodeURIComponent(movie.movieTitle)}`;
+    navigate(movieUrl);
+  };
+
   return (
-    <div className={movieCardStyles.movieCard}>
-      <img className={movieCardStyles.movieImage} src={imageSrc} />
+    <div onClick={handleClick} className={movieCardStyles.movieCard}>
+      <img
+        className={movieCardStyles.movieImage}
+        src={imagePictures[imageIndex].src}
+      />
       <div className={movieCardStyles.movieTextContainer}>
-        <p className={movieCardStyles.movieTitle}>
-          Batman : The Dark Knight Rises
-        </p>
-        <p className={movieCardStyles.movieYear}>2001</p>
+        <p className={movieCardStyles.movieTitle}>{movie.movieTitle}</p>
+        <p className={movieCardStyles.movieYear}>{movie.year}</p>
         <div className={movieCardStyles.moiveReviewContainer}>
-          <p className={movieCardStyles.reviews}>100 </p>
+          <p className={movieCardStyles.reviews}>{movie.reviewCount} </p>
           <MdRateReview style={{ color: "gold" }} />
         </div>
       </div>

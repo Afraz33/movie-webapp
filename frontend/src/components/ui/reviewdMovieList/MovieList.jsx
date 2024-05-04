@@ -1,23 +1,31 @@
 import movieListStyles from "./MovieList.module.css";
-import { Swiper, SwiperSlide } from "swiper/react";
-import {
-  Navigation,
-  Pagination,
-  Scrollbar,
-  A11y,
-  Autoplay,
-} from "swiper/modules";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
-// Import Swiper styles
-import "swiper/css";
-
+import { useState, useEffect } from "react";
 import { imagePictures } from "../../common/data/images";
 //project import
 
 import MovieCard from "../sideMovieCard/MovieCard";
-function MovieList() {
+function ReviewedMovieList() {
+  const [topReviewedMovies, setTopReviewedMovies] = useState([]);
+
+  useEffect(() => {
+    // Fetch the most reviewed movies when the component mounts
+    async function fetchTopReviewedMovies() {
+      try {
+        const response = await fetch(
+          "http://localhost:8000/movies/top-reviewed"
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch top reviewed movies");
+        }
+        const data = await response.json();
+        setTopReviewedMovies(data.topReviewedMovies);
+      } catch (error) {
+        console.error("Error fetching top reviewed movies:", error);
+      }
+    }
+
+    fetchTopReviewedMovies();
+  }, []);
   return (
     <div className={movieListStyles.sideMoviesContainer}>
       <h3
@@ -31,12 +39,12 @@ function MovieList() {
         Most Reviewed
       </h3>
       <div className={movieListStyles.topMovies}>
-        {imagePictures.map((imagePicture, i) => (
-          <MovieCard key={i} imageSrc={imagePicture.src} />
+        {topReviewedMovies?.map((movie, i) => (
+          <MovieCard key={i} movie={movie} imageIndex={i} />
         ))}
       </div>
     </div>
   );
 }
 
-export default MovieList;
+export default ReviewedMovieList;

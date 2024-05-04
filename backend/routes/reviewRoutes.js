@@ -15,7 +15,7 @@ const reviewRoutes = require("express").Router();
 //Review routes
 reviewRoutes.post("/", verifyUser, addReview);
 reviewRoutes.delete("/:reviewId", verifyUser, deleteReview);
-reviewRoutes.get("/movie/:movieTitle", verifyUser, getAllReviewsForMovie);
+reviewRoutes.get("/movie/:movieTitle", getAllReviewsForMovie);
 
 reviewRoutes.get(
   "/movie/:movieTitle/user/:userName",

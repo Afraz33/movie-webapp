@@ -1,5 +1,5 @@
 const Movies = require("../models/movieModel");
-
+const Reviews = require("../models/reviewModel");
 // Function to fetch all movies
 const getAllMovies = async () => {
   try {
@@ -20,7 +20,7 @@ const searchMoviesByTitle = async (title) => {
       throw new Error("title required");
     }
 
-    const moviesByTitle = await Movies.find({
+    const moviesByTitle = await Movies.findOne({
       title: { $regex: title, $options: "i" },
     });
     if (moviesByTitle.length === 0) {
@@ -69,9 +69,38 @@ const deleteMovie = async (title) => {
   }
 };
 
+//function to get top reviewed movies
+async function getTopReviewedMovies(limit = 10) {
+  try {
+    const topReviewedMovies = await Reviews.aggregate([
+      {
+        $group: {
+          _id: "$movieTitle",
+          reviewCount: { $sum: 1 },
+        },
+      },
+      { $sort: { reviewCount: -1 } },
+      { $limit: limit },
+    ]);
+
+    const moviesWithYear = await Promise.all(
+      topReviewedMovies.map(async (movie) => {
+        const movieData = await Movies.findOne({ title: movie._id });
+        const year = movieData ? movieData.year : null;
+        return { movieTitle: movie._id, reviewCount: movie.reviewCount, year };
+      })
+    );
+
+    return moviesWithYear;
+  } catch (error) {
+    throw new Error("Error fetching top reviewed movies: " + error.message);
+  }
+}
+
 module.exports = {
   getAllMovies,
   searchMoviesByTitle,
   createMovie,
   deleteMovie,
+  getTopReviewedMovies,
 };

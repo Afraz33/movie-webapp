@@ -7,6 +7,7 @@
   height: 100vh;
   padding: 10px;
   justify-content: center;
+  background-color: white;
 }
 .logo {
   background-color: var(--primary-color);
@@ -29,7 +30,8 @@
 
 input[type="text"],
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+.textarea {
   display: block;
   width: 100%;
   margin-bottom: 10px;
@@ -39,7 +41,7 @@ input[type="password"] {
   border-radius: 4px;
 }
 
-.loginButton {
+.signupButton {
   padding: 10px;
   font-size: 12px;
   width: 100%;
@@ -78,13 +80,13 @@ button:hover {
   text-align: center;
 }
 
-.haveAccoun a {
-  color: #007bff;
+.haveAccount a {
+  color: var(--primary-color);
   text-decoration: none;
 }
 
-.haveAccoun a:hover {
-  text-decoration: underline;
+.haveAccount a:hover {
+  color: #000;
 }
 
 .signUp {

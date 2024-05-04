@@ -1,6 +1,6 @@
 # Movie Web App
 
-This repository contains the source code for a Movie Web App built with Docker, React, and Django.
+This repository contains the source code for a Movie Web App built with Docker, React, and NodeJs with MongoDb as database.
 
 ## Prerequisites
 

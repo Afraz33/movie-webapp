@@ -45,10 +45,8 @@ function AddMovieForm() {
 
       if (response.ok) {
         setAlert("Movie added successfully");
-        alert("Movie added successfully");
       } else {
         setAlert(data.error, "!" || "Failed to add movie");
-        alert(data.error, "!" || "Failed to add movie");
       }
     } catch (error) {
       console.error("Error adding movie:", error.message);

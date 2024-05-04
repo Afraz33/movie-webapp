@@ -14,14 +14,19 @@ Before running the application, ensure you have Docker Desktop installed on your
     ```bash
     git clone https://github.com/Afraz33/movie-webapp.git
     ```
-
-2. Navigate to the project directory:
+2. Navigate to backend directory 
+     ```bash
+    cd movie-webapp
+    ```
+    Paste your .env file with variables SECRET_KEY and MONGO_URI
+   
+3. Navigate to the project directory:
 
     ```bash
     cd movie-webapp
     ```
 
-3. Start Docker Desktop.
+4. Start Docker Desktop.
 
 ## Usage
 

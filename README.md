@@ -5,6 +5,7 @@ This repository contains the source code for a Movie Web App built with Docker, 
 ## Prerequisites
 
 Before running the application, ensure you have Docker Desktop installed on your machine. You can download and install Docker Desktop from [here](https://www.docker.com/products/docker-desktop).
+After downloading, please make sure to start it on your local machine before proceeding further.
 
 ## Installation
 

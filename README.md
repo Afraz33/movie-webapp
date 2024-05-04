@@ -16,7 +16,7 @@ Before running the application, ensure you have Docker Desktop installed on your
     ```
 2. Navigate to backend directory 
      ```bash
-    cd movie-webapp
+    cd backend
     ```
     Paste your .env file with variables SECRET_KEY and MONGO_URI
    

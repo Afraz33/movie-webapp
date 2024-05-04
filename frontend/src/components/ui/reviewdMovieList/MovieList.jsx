@@ -1,9 +1,12 @@
 import movieListStyles from "./MovieList.module.css";
 import { useState, useEffect } from "react";
-import { imagePictures } from "../../common/data/images";
-//project import
 
+//default image data
+import { imagePictures } from "../../common/data/images";
+
+//project import
 import MovieCard from "../sideMovieCard/MovieCard";
+
 function ReviewedMovieList() {
   const [topReviewedMovies, setTopReviewedMovies] = useState([]);
 

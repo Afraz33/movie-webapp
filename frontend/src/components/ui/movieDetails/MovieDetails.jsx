@@ -1,10 +1,17 @@
 import styles from "./MovieDetails.module.css";
 
+//import default image data
+import { imagePictures } from "../../common/data/images";
+
 function MovieDetails({ movieData }) {
+  const imageIndex = localStorage.getItem("imageIndex");
   return (
     <div className={styles.container}>
       <div className={styles.movieInfoContainer}>
-        <img className={styles.movieImage} src="/images/avengers.webp" />
+        <img
+          className={styles.movieImage}
+          src={imagePictures[imageIndex].src}
+        />
         <div className={styles.movieInfo}>
           <p className={styles.movieTitle}>{movieData.title}</p>
           <p className={styles.movieYear}>{movieData.year}</p>

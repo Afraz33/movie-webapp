@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import styles from "./SignUpForm.module.css";
 import { Link } from "react-router-dom";
-import { signUp } from "../../service/auth";
+
 function SignUpForm() {
+  // State for form data and alert message
   const [formData, setFormData] = useState({
     userName: "",
     name: "",
@@ -10,6 +11,8 @@ function SignUpForm() {
     password: "",
   });
   const [alert, setAlert] = useState("");
+
+  // Function to handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -18,14 +21,17 @@ function SignUpForm() {
     });
   };
 
+  // Function to add focus class on input focus
   const handleFocus = (e) => {
     e.target.classList.add(styles.inputFocused);
   };
 
+  // Function to remove focus class on input blur
   const handleBlur = (e) => {
     e.target.classList.remove(styles.inputFocused);
   };
 
+  // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -56,6 +62,7 @@ function SignUpForm() {
       </div>
       <form onSubmit={handleSubmit} className={styles.form}>
         <h2 className={styles.signUp}>Create Account</h2>
+        {/* Alert message */}
         <p
           className={
             alert
@@ -67,6 +74,7 @@ function SignUpForm() {
         >
           {alert}!
         </p>
+        {/* Username input */}
         <div className={styles.inputContainer}>
           <label htmlFor="userName">Username</label>
           <input
@@ -81,6 +89,7 @@ function SignUpForm() {
             required
           />
         </div>
+        {/* Name input */}
         <div className={styles.inputContainer}>
           <label htmlFor="name">Name</label>
           <input
@@ -95,6 +104,7 @@ function SignUpForm() {
             required
           />
         </div>
+        {/* Email input */}
         <div className={styles.inputContainer}>
           <label htmlFor="email">Email</label>
           <input
@@ -109,6 +119,7 @@ function SignUpForm() {
             required
           />
         </div>
+        {/* Password input */}
         <div className={styles.inputContainer}>
           <label htmlFor="password">Password</label>
           <input
@@ -125,9 +136,11 @@ function SignUpForm() {
           />
         </div>
 
+        {/* Submit button */}
         <button className={styles.signupButton} type="submit">
           Sign Up
         </button>
+        {/* Link to login page */}
         <p className={styles.haveAccount}>
           Have an account? <Link to="/auth/login">Log in</Link>
         </p>

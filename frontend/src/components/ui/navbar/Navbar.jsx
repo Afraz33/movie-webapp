@@ -1,49 +1,53 @@
 // Navbar.jsx
 
-import React from "react";
-import { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import navbarStyles from "./Navbar.module.css";
 import { CiSearch } from "react-icons/ci";
 import { BsBookmarkPlusFill } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../../context/UserContext";
-import SearchMovies from "../searchResults/SearchMovies";
+
 function Navbar() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const userName = localStorage.getItem("user name");
+  const [searchQuery, setSearchQuery] = useState(""); // State to store search query
+  const userName = localStorage.getItem("user name"); // Retrieve user name from local storage
   const navigate = useNavigate();
 
-  //=========> Handler Functions <==========
+  // Handler function to navigate to login page
   const handleLogin = () => {
     navigate("/auth/login");
   };
 
+  // Handler function to navigate to register page
   const handleRegister = () => {
     navigate("/auth/register");
   };
 
+  // Handler function to navigate to add movie page
   const handleAddMovie = () => {
     navigate("/movie/add");
   };
+
+  // Handler function to handle search functionality
   const handleSearch = () => {
     navigate(`/movie/${encodeURIComponent(searchQuery)}`);
   };
 
+  // Handler function to clear local storage and logout
   const handleLogout = () => {
     localStorage.clear();
-
     navigate("/auth/login");
   };
 
   return (
     <nav className={navbarStyles.nav}>
+      {/* Logo */}
       <div className={navbarStyles.logo}>
         <Link to="/">Movify</Link>
       </div>
+
+      {/* Search Bar */}
       <div className={navbarStyles.navSearchForm}>
         <input
-          placeholder="Search Movies"
+          placeholder="Search movies and press enter or click icon"
           className={navbarStyles.searchBar}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
@@ -52,22 +56,21 @@ function Navbar() {
               handleSearch();
             }
           }}
-        ></input>
+        />
         <img
           className={navbarStyles.searchButton}
           src="/icons/search.svg"
           alt="search"
+          onClick={handleSearch}
         />
       </div>
-      {/* <div className={navbarStyles.searchedMovies}>
-        <SearchMovies />
-      </div> */}
 
+      {/* Auth Buttons */}
       <div className={navbarStyles.authButtons}>
         <div className={navbarStyles.mobileSearch}>
           <CiSearch style={{ width: "3rem", height: "3rem" }} />
         </div>
-        {userName ? (
+        {userName ? ( // If user is logged in
           <>
             <div onClick={handleAddMovie} className={navbarStyles.watchList}>
               <BsBookmarkPlusFill style={{ width: "30px", height: "30px" }} />
@@ -75,35 +78,21 @@ function Navbar() {
             </div>
             <p className={navbarStyles.userName}> {userName}</p>
             <button onClick={handleLogout} className={navbarStyles.login}>
-              logout
+              Logout
             </button>
           </>
         ) : (
+          // If user is not logged in
           <>
             <button onClick={handleRegister} className={navbarStyles.signup}>
               Signup
             </button>
             <button onClick={handleLogin} className={navbarStyles.login}>
-              login
+              Login
             </button>
           </>
         )}
       </div>
-
-      {/* <ul className={navbarStyles.navLinks}>
-        <li>
-          <Link to="/movies">Movies</Link>
-        </li>
-        <li>
-          <Link to="/tv-shows">TV Shows</Link>
-        </li>
-        <li>
-          <Link to="/favorites">Favorites</Link>
-        </li>
-        <li>
-          <Link to="/login">Login</Link>
-        </li>
-      </ul> */}
     </nav>
   );
 }

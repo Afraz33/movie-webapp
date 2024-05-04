@@ -11,37 +11,58 @@ import { useParams } from "react-router-dom";
 function MovieInfo() {
   const { title } = useParams();
   const [movieData, setMovieData] = useState(null);
+  const [noMoviesFound, setNoMoviesFound] = useState(false); // State to indicate no movies found
+
+  const fetchMovieData = async (title, setMovieData, setNoMoviesFound) => {
+    try {
+      const apiUrl = `http://localhost:8000/movies/search?title=${encodeURIComponent(
+        title
+      )}`;
+
+      // Fetch movie data from the backend
+      const response = await fetch(apiUrl);
+
+      if (response.status === 404) {
+        setNoMoviesFound(true);
+        return;
+      }
+      const data = await response.json();
+
+      setMovieData(data);
+      setNoMoviesFound(false);
+    } catch (error) {
+      console.error("Error fetching movie data:", error);
+    }
+  };
 
   useEffect(() => {
-    const apiUrl = `http://localhost:8000/movies/search?title=${encodeURIComponent(
-      title
-    )}`;
+    // Call the function to fetch movie data
+    fetchMovieData(title, setMovieData, setNoMoviesFound);
+  }, [title, setMovieData]);
 
-    // Fetch movie data from the backend
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setMovieData(data);
-      })
+  if (noMoviesFound) {
+    return (
+      <>
+        <Navbar />
 
-      .catch((error) => {
-        console.error("Error fetching movie data:", error);
-      });
-  }, [title]);
-
+        <p style={{ fontSize: "2rem", color: "white", textAlign: "center" }}>
+          No movies found.
+        </p>
+      </>
+    );
+  }
   return (
     <>
-      <Navbar />
-
       {movieData && (
         <>
+          {" "}
+          <Navbar />
           <MovieHero movieData={movieData} />
           <MovieFunctions movieTitle={movieData.title} />
           <MovieReviewsList movieTitle={movieData.title} />
+          <Footer />
         </>
       )}
-      <Footer />
     </>
   );
 }

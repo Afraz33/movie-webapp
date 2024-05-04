@@ -25,7 +25,6 @@ function MovieList({ movies }) {
       { width: 1200, slides: 4 },
       { width: 768, slides: 3 },
       { width: 480, slides: 1 },
-      // Add more breakpoints if needed
     ];
 
     const handleResize = () => {
@@ -36,7 +35,7 @@ function MovieList({ movies }) {
     };
 
     window.addEventListener("resize", handleResize);
-    handleResize(); // Call initially
+    handleResize();
     return () => window.removeEventListener("resize", handleResize);
   }, []);
   return (
@@ -71,22 +70,14 @@ function MovieList({ movies }) {
             slidesPerView: 5,
           },
         }}
-        // spaceBetween={50}
-        // navigation
         pagination={{ clickable: true }}
-        // scrollbar={{ draggable: true }}
         centeredSlides={true}
         loop={true}
         autoplay={{ delay: 3000 }}
-        // width={500}
-        // height={300}
-        // onSlideChange={() => console.log("slide change")}
-        // onSwiper={(swiper) => console.log(swiper)}
       >
         {movies.length === 0 && (
           <div className={AllMoviesListStyles.noMovies}>
-            <h2>No Movies Exist</h2>
-            <p style={{ color: "gray" }}>Login to add movies</p>
+            <h2 style={{ color: "gray" }}>No Movies Exist</h2>
           </div>
         )}
         {movies?.map((movie, i) => (
@@ -94,14 +85,6 @@ function MovieList({ movies }) {
             <MovieCard movie={movie} imageIndex={i} />
           </SwiperSlide>
         ))}
-        {/* <MovieCard />
-        <MovieCard />
-        <MovieCard />
-        <MovieCard />
-        <MovieCard />
-        <MovieCard />
-        <MovieCard />
-        <MovieCard /> */}
       </Swiper>
     </div>
   );

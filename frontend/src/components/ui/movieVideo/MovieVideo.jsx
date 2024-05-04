@@ -1,10 +1,14 @@
 import styles from "./MovieVideo.module.css";
-function MovieVideo() {
+
+//import default iframes iframeUrls
+import { iframeUrls } from "../../common/data/iframesUrls";
+
+function MovieVideo({ index }) {
   return (
     <div>
       <iframe
         className={styles.trailerIframe}
-        src="https://www.unilad.com/jw-iframe.html?videoId=TBopq3P5"
+        src={iframeUrls[index].src}
         // width="100%"
         // height="100%"
       ></iframe>

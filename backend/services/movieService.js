@@ -6,7 +6,7 @@ const Reviews = require("../models/reviewModel");
 const getAllMovies = async () => {
   try {
     const allMovies = await Movies.find();
-    if (allMovies.length === 0) {
+    if (allMovies.length === null) {
       throw new Error("No movies found");
     }
     return allMovies;
@@ -25,9 +25,7 @@ const searchMoviesByTitle = async (title) => {
     const moviesByTitle = await Movies.findOne({
       title: { $regex: title, $options: "i" },
     });
-    if (moviesByTitle.length === 0) {
-      return null;
-    } else return moviesByTitle;
+    return moviesByTitle;
   } catch (error) {
     throw error;
   }

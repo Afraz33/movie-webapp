@@ -3,6 +3,7 @@ import styles from "./AddMovieForm.module.css";
 import { Link } from "react-router-dom";
 
 function AddMovieForm() {
+  // State variables for form data and alert message
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -10,6 +11,7 @@ function AddMovieForm() {
   });
   const [alert, setAlert] = useState("");
 
+  // Function to handle form input change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -18,14 +20,17 @@ function AddMovieForm() {
     });
   };
 
+  // Function to add focus styling to input field
   const handleFocus = (e) => {
     e.target.classList.add(styles.inputFocused);
   };
 
+  // Function to remove focus styling from input field
   const handleBlur = (e) => {
     e.target.classList.remove(styles.inputFocused);
   };
 
+  // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -37,11 +42,11 @@ function AddMovieForm() {
         body: JSON.stringify(formData),
       });
       const data = await response.json();
-      console.log(data);
+
       if (response.ok) {
         setAlert("Movie added successfully");
       } else {
-        setAlert(data.message || "Failed to add movie");
+        setAlert(data.error, "!" || "Failed to add movie");
       }
     } catch (error) {
       console.error("Error adding movie:", error.message);
@@ -67,6 +72,7 @@ function AddMovieForm() {
         >
           {alert}
         </p>
+        {/* Title input field */}
         <div className={styles.inputContainer}>
           <label htmlFor="title">Title</label>
           <input
@@ -81,6 +87,7 @@ function AddMovieForm() {
             required
           />
         </div>
+        {/* Description input field */}
         <div className={styles.inputContainer}>
           <label htmlFor="description">Description</label>
           <textarea
@@ -95,6 +102,7 @@ function AddMovieForm() {
             required
           />
         </div>
+        {/* Year input field */}
         <div className={styles.inputContainer}>
           <label htmlFor="year">Year</label>
           <input
@@ -109,9 +117,11 @@ function AddMovieForm() {
             required
           />
         </div>
+        {/* Add Movie button */}
         <button className={styles.signupButton} type="submit">
           Add Movie
         </button>
+        {/* Back to Home link */}
         <p className={styles.haveAccount}>
           <Link to="/">Back to Home</Link>
         </p>

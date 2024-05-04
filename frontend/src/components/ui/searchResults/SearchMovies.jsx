@@ -1,9 +1,9 @@
 import movieListStyles from "./SearchMovies.module.css";
-
 import { imagePictures } from "../../common/data/images";
-//project import
 
+//project import
 import MovieCard from "../sideMovieCard/MovieCard";
+
 function SearchMovies() {
   return (
     <div className={movieListStyles.sideMoviesContainer}>

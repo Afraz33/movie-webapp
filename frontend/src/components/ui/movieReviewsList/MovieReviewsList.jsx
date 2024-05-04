@@ -1,41 +1,42 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./MovieReviewsList.module.css";
-import MovieReviews from "../movieReviews/MovieReviews";
 import { IoMdAdd } from "react-icons/io";
 
-import { imagePictures } from "../../common/data/images";
+// Project import
+import MovieReviews from "../movieReviews/MovieReviews";
+
 function MovieReviewsList({ movieTitle }) {
   const navigate = useNavigate();
   const [reviews, setReviews] = useState([]);
   const [isAddingReview, setIsAddingReview] = useState(false);
   const [newReviewText, setNewReviewText] = useState("");
 
+  //accessing user info from local storage
   const token = localStorage.getItem("token");
   const userName = localStorage.getItem("user name");
-  console.log("token is:", token);
+
+  // Function to fetch reviews for the specified movie
   const fetchReviews = async () => {
     try {
-      // Make an API request to fetch reviews based on the movie title
       const response = await fetch(
-        `http://localhost:8000/reviews/movie/${encodeURIComponent(movieTitle)}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`, // Include token as Authorization header
-          },
-        }
+        `http://localhost:8000/reviews/movie/${encodeURIComponent(movieTitle)}`
       );
+      if (!response.ok) {
+        throw new Error("Failed to fetch reviews");
+      }
       const data = await response.json();
-      console.log(data);
-      setReviews(data); // Assuming the response contains an array of reviews
+      setReviews(data);
     } catch (error) {
       console.error("Error fetching reviews:", error);
     }
   };
+
   useEffect(() => {
     fetchReviews();
   }, [movieTitle]);
 
+  // Function to handle deletion of a review
   const handleDeleteReview = async (reviewId) => {
     try {
       const response = await fetch(
@@ -48,7 +49,7 @@ function MovieReviewsList({ movieTitle }) {
         }
       );
       if (response.ok) {
-        fetchReviews(); // Fetch reviews again to update the list
+        fetchReviews();
       } else {
         console.error("Failed to delete review");
       }
@@ -56,6 +57,8 @@ function MovieReviewsList({ movieTitle }) {
       console.error("Error deleting review:", error);
     }
   };
+
+  // Function to handle updating a review
   const handleUpdateReview = async (reviewId, updatedText) => {
     try {
       const response = await fetch(
@@ -66,7 +69,7 @@ function MovieReviewsList({ movieTitle }) {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ reviewId: reviewId, reviewText: updatedText }),
+          body: JSON.stringify({ reviewText: updatedText }),
         }
       );
       if (response.ok) {
@@ -79,6 +82,7 @@ function MovieReviewsList({ movieTitle }) {
     }
   };
 
+  // Function to initiate adding a review or redirect if no token exists
   const handleAddText = () => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -88,6 +92,7 @@ function MovieReviewsList({ movieTitle }) {
     setIsAddingReview(true);
   };
 
+  // Function to handle adding a new review
   const handleAddReview = async () => {
     if (newReviewText.trim() === "") {
       return;
@@ -101,16 +106,14 @@ function MovieReviewsList({ movieTitle }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userName: userName,
           movieTitle: movieTitle,
           reviewText: newReviewText,
+          userName: userName,
         }),
       });
 
       if (response.ok) {
-        // If review added successfully, fetch updated reviews
         fetchReviews();
-        // Reset newReviewText and hide the textarea
         setNewReviewText("");
         setIsAddingReview(false);
       } else {
@@ -120,13 +123,13 @@ function MovieReviewsList({ movieTitle }) {
       console.error("Error adding review:", error);
     }
   };
+
   return (
     <section className={styles.container}>
       <div className={styles.reviewsList}>
         {reviews.length === 0 ? (
           <div className={styles.noReviews}>
             <h2>No Reviews</h2>
-            <p style={{ color: "gray" }}>Login to add reviews</p>
           </div>
         ) : (
           <p className={styles.heading}>Reviews</p>
@@ -141,6 +144,7 @@ function MovieReviewsList({ movieTitle }) {
           />
         ))}
       </div>
+
       {isAddingReview ? (
         <div className={styles.addReviewContainer}>
           <textarea

@@ -19,21 +19,11 @@ function heroCarousel() {
     <Swiper
       modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
       className={heroCarouselStyles.swiper}
-      // spaceBetween={50}
       navigation={{}}
-      // breakpoints={{
-      //   320: { pagination: { clickable: false } },
-      //   768: { pagination: { clickable: true } },
-      // }}
-      // pagination={{ clickable: true }}
       scrollbar={{ draggable: true }}
       slidesPerView={1}
       loop={true}
       autoplay={{ delay: 3000 }}
-      // width={500}
-      // height={300}
-      // onSlideChange={() => console.log("slide change")}
-      // onSwiper={(swiper) => console.log(swiper)}
     >
       {carouselData.map((carouselItem, i) => (
         <SwiperSlide key={i}>

@@ -58,10 +58,10 @@
   font-size: 14px;
   border: 2px solid transparent;
   border-radius: 5px;
-  resize: vertical; /* Allows vertical resizing */
+  resize: vertical;
 }
 
 .reviewTextEdit:focus {
-  outline: none; /* Removes the default focus outline */
-  border-color: var(--primary-color); /* Changes border color when focused */
+  outline: none;
+  border-color: var(--primary-color);
 }

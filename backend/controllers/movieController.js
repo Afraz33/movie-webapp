@@ -5,20 +5,22 @@ const movieService = require("../services/movieService");
 const getAllMovies = async (req, res) => {
   try {
     const allMovies = await movieService.getAllMovies();
+    if (!allMovies) {
+      return res.status(404).json({ message: "No movies found" });
+    }
     res.status(200).json(allMovies);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
-//Controller function to search movies by title
 const searchMoviesByTitle = async (req, res) => {
   const { title } = req.query;
   try {
     const moviesByTitle = await movieService.searchMoviesByTitle(title);
 
-    if (moviesByTitle === null) {
-      res.status(300).json({ message: "no movies found" });
+    if (!moviesByTitle) {
+      return res.status(404).json({ message: "No movies found" });
     }
     res.status(200).json(moviesByTitle);
   } catch (error) {

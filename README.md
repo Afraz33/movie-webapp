@@ -47,7 +47,8 @@ You can verify if both containers are running succesfully before accessing the a
 ### Note
 
 Images and Trailers: Please note that images and trailers are currently hardcoded since they are not provided by users. As a result, there might be a mismatch between the movie data and the associated images/trailers.
-Test Account
+
+### Test Account
 To test the existing functionality and reviews, you can use the following test account:
 
 ```bash

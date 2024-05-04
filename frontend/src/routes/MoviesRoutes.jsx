@@ -5,7 +5,7 @@ import withLazy from "../components/common/Loadable";
 const MovieInfo = withLazy(() => import("../pages/movie/MovieInfo"));
 const AddMovie = withLazy(() => import("../pages/movie/AddMovie"));
 
-const MovieRoutes = [
+const MoviesRoutes = [
   {
     path: "/movie/:title",
     element: <MovieInfo />,
@@ -16,4 +16,4 @@ const MovieRoutes = [
   },
 ];
 
-export default MovieRoutes;
+export default MoviesRoutes;

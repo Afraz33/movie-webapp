@@ -4,10 +4,10 @@ import { useRoutes } from "react-router-dom";
 import PublicRoutes from "@routes/PublicRoutes";
 import AuthRoutes from "@routes/AuthRoutes";
 
-import MovieRoutes from "@routes/MovieRoutes";
+import MoviesRoutes from "@routes/MoviesRoutes";
 
 function ThemeRoutes() {
-  return useRoutes([...AuthRoutes, ...PublicRoutes, ...MovieRoutes]);
+  return useRoutes([...AuthRoutes, ...PublicRoutes, ...MoviesRoutes]);
 }
 
 export default ThemeRoutes;

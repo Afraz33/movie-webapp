@@ -20,17 +20,18 @@ Before running the application, ensure you have Docker Desktop installed on your
     ```
     Paste your .env file with variables SECRET_KEY and MONGO_URI
    
-3. Navigate to the project directory:
+
+
+## Usage
+1. Navigate to the project directory:
 
     ```bash
     cd movie-webapp
     ```
 
-4. Start Docker Desktop.
+2. Start Docker Desktop.
 
-## Usage
-
-To run the containers, use the following command inside project directory:
+3.To run the containers, use the following command inside project directory:
 
 ```bash
 docker-compose up -d

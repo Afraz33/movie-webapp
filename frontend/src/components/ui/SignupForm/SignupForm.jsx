@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import styles from "./SignUpForm.module.css";
-import { Link } from "react-router-dom";
+import styles from "./SignupForm.module.css";
+import { Link, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function SignUpForm() {
+  const navigate = useNavigate();
+
   // State for form data and alert message
   const [formData, setFormData] = useState({
     userName: "",
@@ -48,6 +51,9 @@ function SignUpForm() {
         setAlert(data.error);
       } else if (data.user) {
         setAlert("Signup Successful");
+        setTimeout(() => {
+          navigate("/auth/login");
+        }, 1200);
       }
     } catch (error) {
       console.error("Sign up failed:", error.message);

@@ -13,6 +13,7 @@ function MovieCard({ movie, imageIndex }) {
 
   // Handler function to navigate to the movie details page
   const handleClick = () => {
+    localStorage.setItem("imageIndex", imageIndex);
     // Encode the movie title to handle special characters in the URL
     const movieUrl = `/movie/${encodeURIComponent(movie.movieTitle)}`;
     navigate(movieUrl);

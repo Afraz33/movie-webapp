@@ -10,10 +10,10 @@ function MovieCard({ movie, imageIndex }) {
 
   //imageIndex is within the range of available default images
   imageIndex = imageIndex % imagePictures.length;
-  localStorage.setItem("imageIndex", imageIndex);
 
   // Function to handle clicking on the movie card
   const handleClick = () => {
+    localStorage.setItem("imageIndex", imageIndex);
     const movieUrl = `/movie/${encodeURIComponent(movie.title)}`;
     navigate(movieUrl);
   };

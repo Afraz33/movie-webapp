@@ -37,10 +37,18 @@ After containers have successfully been created and are running, you can access 
 http://localhost:5000/
 ```
 
+### Troubleshooting
+The docker container for frontend runs on port 5000 and docker container for backend runs on 8000. Make sure that no other services are utilizing these ports. If so, the app containers won't run and app won't be accessible or will be accessible with limited functionality.
+
+You can verify if both containers are running succesfully before accessing the app by opeing docker desktop and viewing movie-webapp container. 
+![image](https://github.com/Afraz33/movie-webapp/assets/95544278/d07533ca-074a-4e78-af32-47dd58ad382f)
+
+
 ### Note
 
 Images and Trailers: Please note that images and trailers are currently hardcoded since they are not provided by users. As a result, there might be a mismatch between the movie data and the associated images/trailers.
-Test Account
+
+### Test Account
 To test the existing functionality and reviews, you can use the following test account:
 
 ```bash

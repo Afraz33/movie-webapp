@@ -10,6 +10,7 @@ function MovieFunctions({ movieTitle }) {
   const handleNavigate = () => {
     const token = localStorage.getItem("token");
     if (!token) {
+      alert("You need to login to add movies!");
       navigate("/auth/login");
       return;
     }
@@ -20,6 +21,7 @@ function MovieFunctions({ movieTitle }) {
   const handleDelete = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
+      alert("You need to login to delete movies!");
       navigate("/auth/login");
       return;
     }

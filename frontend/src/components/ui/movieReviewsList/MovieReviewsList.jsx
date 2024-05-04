@@ -86,6 +86,7 @@ function MovieReviewsList({ movieTitle }) {
   const handleAddText = () => {
     const token = localStorage.getItem("token");
     if (!token) {
+      alert("You need to login to add a review!");
       navigate("/auth/login");
       return;
     }

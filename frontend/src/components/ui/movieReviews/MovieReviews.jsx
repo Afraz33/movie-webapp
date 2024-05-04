@@ -18,6 +18,7 @@ function MovieReviews({ review, onDelete, onUpdate }) {
   // Function to handle review deletion
   const handleDelete = () => {
     if (!token) {
+      alert("You need to login to delete a review!");
       navigate("/auth/login");
     } else {
       onDelete(review.reviewId);
@@ -32,6 +33,7 @@ function MovieReviews({ review, onDelete, onUpdate }) {
   // Function to handle edit mode
   const handleEdit = () => {
     if (!token) {
+      alert("You need to login to edit a review!");
       navigate("/auth/login");
     } else setIsEditing(true);
   };

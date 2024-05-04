@@ -1,8 +1,8 @@
 //Project Imports
-import Navbar from "../../components/ui/navbar/Navbar";
+import Navbar from "@components/ui/navbar/Navbar";
+import Footer from "@components/ui/footer/Footer";
+import SignUpForm from "@components/ui/SignupForm/SignupForm";
 
-import Footer from "../../components/ui/footer/Footer";
-import SignUpForm from "../../components/ui/SignupForm/SignupForm";
 function AuthRegister() {
   return (
     <div

@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 
 //project import
-import Navbar from "../../components/ui/navbar/Navbar";
-import Hero from "../../components/ui/hero/Hero";
-import Footer from "../../components/ui/footer/Footer";
-import AllMoviesList from "../../components/ui/allMovies/AllMoviesList";
+import Navbar from "@components/ui/navbar/Navbar";
+import Hero from "@components/ui/hero/Hero";
+import Footer from "@components/ui/footer/Footer";
+import AllMoviesList from "@components/ui/allMovies/AllMoviesList";
 function Home() {
   const [movies, setMovies] = useState([]);
 

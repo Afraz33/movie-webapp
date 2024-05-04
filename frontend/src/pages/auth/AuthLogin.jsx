@@ -1,5 +1,5 @@
-import LoginForm from "../../components/ui/LoginForm/LoginForm";
-import Footer from "../../components/ui/footer/Footer";
+import LoginForm from "@components/ui/LoginForm/LoginForm";
+import Footer from "@components/ui/footer/Footer";
 function AuthLogin() {
   return (
     <div

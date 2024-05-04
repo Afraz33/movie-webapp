@@ -38,7 +38,7 @@ http://localhost:5000/
 ```
 
 ### Troubleshooting
-The docker container for frontend runs on port 5000 and docker container for backend runs on 8000. Make sure that no other services are utilizing these ports. If so, the app containers won't run and app won't run and app won't be accessible or will be accessible with limited functionality.
+The docker container for frontend runs on port 5000 and docker container for backend runs on 8000. Make sure that no other services are utilizing these ports. If so, the app containers won't run and app won't be accessible or will be accessible with limited functionality.
 
 
 ### Note

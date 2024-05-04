@@ -29,11 +29,15 @@ To run the application, use the following command:
 
 ```bash
 docker-compose up -d
+```
 
-Note
+###Note
+
 Images and Trailers: Please note that images and trailers are currently hardcoded since they are not provided by users. As a result, there might be a mismatch between the movie data and the associated images/trailers.
 Test Account
 To test the existing functionality and reviews, you can use the following test account:
 
+```bash
 Email: test1@gmail.com
 Password: test1234
+```

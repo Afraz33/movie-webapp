@@ -42,6 +42,11 @@ function ReviewedMovieList() {
         Most Reviewed
       </h3>
       <div className={movieListStyles.topMovies}>
+        {topReviewedMovies.length === 0 && (
+          <div className={movieListStyles.noMovies}>
+            <h3 style={{ color: "gray" }}>No Movies for reviews</h3>
+          </div>
+        )}
         {topReviewedMovies?.map((movie, i) => (
           <MovieCard key={i} movie={movie} imageIndex={i} />
         ))}

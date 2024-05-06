@@ -61,7 +61,8 @@ function MovieInfo() {
               textAlign: "center",
             }}
           >
-            No movies found!
+            No movies found for "{" "}
+            <span style={{ color: "rgb(225, 29, 72)" }}>{title}</span> "
           </p>
         </div>
         <Footer />

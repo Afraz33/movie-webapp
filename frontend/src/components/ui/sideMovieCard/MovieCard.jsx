@@ -24,7 +24,7 @@ function MovieCard({ movie, imageIndex }) {
       {/* Display the movie image */}
       <img
         className={movieCardStyles.movieImage}
-        src={imagePictures[0].src}
+        src={movie.imageUrl}
         alt={movie.movieTitle} // Add alt text for accessibility
       />
       {/* Display movie information */}

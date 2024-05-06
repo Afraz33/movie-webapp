@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 //image default data
 import { imagePictures } from "../../common/data/images";
 
-function SearchMovieCard({ movie, imageIndex }) {
+function SearchMovieCard({ setSearchResultsOpen, movie, imageIndex }) {
   const navigate = useNavigate();
 
   // Ensure that the image index remains within the bounds of available images
@@ -13,20 +13,23 @@ function SearchMovieCard({ movie, imageIndex }) {
 
   // Handler function to navigate to the movie details page
   const handleClick = () => {
-    localStorage.setItem("imageIndex", imageIndex);
-    // Encode the movie title to handle special characters in the URL
+    setSearchResultsOpen(false);
     const movieUrl = `/movie/${encodeURIComponent(movie.title)}`;
     navigate(movieUrl);
   };
 
-  console.log(movie);
+  //truncate text to 100 characters
+  const truncatedDescription =
+    movie.description.length > 100
+      ? `${movie.description.substring(0, 100)}...`
+      : movie.description;
 
   return (
     <div onClick={handleClick} className={movieCardStyles.movieCard}>
       {/* Display the movie image */}
       <img
         className={movieCardStyles.movieImage}
-        src={imagePictures[0].src}
+        src={movie.imageUrl}
         alt={movie.title} // Add alt text for accessibility
       />
       {/* Display movie information */}
@@ -34,6 +37,9 @@ function SearchMovieCard({ movie, imageIndex }) {
         <p className={movieCardStyles.movieTitle}>{movie.title}</p>
         <p className={movieCardStyles.movieYear}>{movie.year}</p>
         {/* Display review count and review icon */}
+        <div className={movieCardStyles.moiveReviewContainer}>
+          <p className={movieCardStyles.reviews}>{truncatedDescription} </p>
+        </div>
       </div>
     </div>
   );

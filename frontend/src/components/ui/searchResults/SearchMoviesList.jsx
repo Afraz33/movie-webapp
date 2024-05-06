@@ -5,7 +5,7 @@ import { imagePictures } from "../../common/data/images";
 import MovieCard from "../sideMovieCard/MovieCard";
 import SearchMovieCard from "../searchMovieCard/MovieCard";
 
-function SearchMovies({ movieData }) {
+function SearchMovies({ movieData, setSearchResultsOpen }) {
   return (
     <div className={movieListStyles.sideMoviesContainer}>
       <div className={movieListStyles.topMovies}>
@@ -18,10 +18,16 @@ function SearchMovies({ movieData }) {
               padding: "50px 0px",
             }}
           >
-            <h3 style={{ textAlign: "center" }}>No Movies Found</h3>
+            <h3 style={{ textAlign: "center" }}>No Movies Found!</h3>
           </div>
         ) : (
-          movieData.map((movie, i) => <SearchMovieCard movie={movie} key={i} />)
+          movieData.map((movie, i) => (
+            <SearchMovieCard
+              setSearchResultsOpen={setSearchResultsOpen}
+              movie={movie}
+              key={i}
+            />
+          ))
         )}
       </div>
     </div>

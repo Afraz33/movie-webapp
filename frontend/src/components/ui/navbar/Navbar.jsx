@@ -1,22 +1,23 @@
-// Navbar.jsx
-
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import navbarStyles from "./Navbar.module.css";
 import { CiSearch } from "react-icons/ci";
 import { BsBookmarkPlusFill } from "react-icons/bs";
-
-//project import
-
+import { IoIosAdd, IoMdClose } from "react-icons/io";
+import { IoMdAddCircle } from "react-icons/io";
+// Project imports
 import SearchMovies from "../searchResults/SearchMoviesList";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 function Navbar() {
   const [searchQuery, setSearchQuery] = useState(""); // State to store search query
   const userName = localStorage.getItem("user name"); // Retrieve user name from local storage
   const [movieData, setMovieData] = useState(null);
   const [noMoviesFound, setNoMoviesFound] = useState(false); // State to indicate no movies found
+  const [searchResultsOpen, setSearchResultsOpen] = useState(false);
   const navigate = useNavigate();
   const abortController = new AbortController();
+  const searchRef = useRef(null); // Reference to the search component
 
   //fetch movies on search
   const fetchMovieData = async (searchQuery) => {
@@ -39,6 +40,7 @@ function Navbar() {
       setMovieData(data);
       console.log(data);
       setNoMoviesFound(false);
+      setSearchResultsOpen(true);
     } catch (error) {
       if (error.name === "AbortError") {
         console.log("Previous request aborted");
@@ -90,6 +92,23 @@ function Navbar() {
     navigate("/auth/login");
   };
 
+  // Function to close search results when clicking outside
+  const handleClickOutside = (event) => {
+    if (searchRef.current && !searchRef.current.contains(event.target)) {
+      setSearchResultsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    // Add event listener to handle clicks outside of the search component
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Cleanup function to remove event listener
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
       <nav className={navbarStyles.nav}>
@@ -99,9 +118,9 @@ function Navbar() {
         </div>
 
         {/* Search Bar */}
-        <div className={navbarStyles.navSearchForm}>
+        <div className={navbarStyles.navSearchForm} ref={searchRef}>
           <input
-            placeholder="Search movies and press enter or click icon"
+            placeholder="Search movies"
             className={navbarStyles.searchBar}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -127,7 +146,7 @@ function Navbar() {
           {userName ? ( // If user is logged in
             <>
               <div onClick={handleAddMovie} className={navbarStyles.watchList}>
-                <BsBookmarkPlusFill style={{ width: "30px", height: "30px" }} />
+                <IoMdAddCircle style={{ width: "30px", height: "30px" }} />
                 <p className={navbarStyles.watchListText}>Add Movie</p>
               </div>
               <p className={navbarStyles.userName}> {userName}</p>
@@ -148,9 +167,25 @@ function Navbar() {
           )}
         </div>
       </nav>
-      {movieData && (
-        <div className={navbarStyles.searchedMovies}>
-          <SearchMovies movieData={movieData} />
+      {searchResultsOpen && movieData && (
+        <div ref={searchRef} className={navbarStyles.searchedMovies}>
+          <IoMdClose
+            style={{
+              color: "white",
+              position: "absolute",
+              top: "10px",
+              right: "10px",
+              fontSize: "20px",
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              setSearchResultsOpen(false);
+            }}
+          />
+          <SearchMovies
+            setSearchResultsOpen={setSearchResultsOpen}
+            movieData={movieData}
+          />
         </div>
       )}
     </>

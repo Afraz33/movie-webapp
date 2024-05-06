@@ -22,10 +22,7 @@ function MovieCard({ movie, imageIndex }) {
     <div className={movieCardStyles.movieCard} onClick={handleClick}>
       {/* Movie image */}
       <div>
-        <img
-          className={movieCardStyles.movieImage}
-          src={imagePictures[imageIndex].src}
-        />
+        <img className={movieCardStyles.movieImage} src={movie.imageUrl} />
       </div>
       {/* Movie details */}
       <div className={movieCardStyles.movieTextContainer}>

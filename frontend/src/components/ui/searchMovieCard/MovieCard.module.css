@@ -1,0 +1,45 @@
+.movieCard {
+  min-height: 150px;
+  max-height: 200px;
+  width: 100%;
+  background-color: var(--tertiary-color);
+  cursor: pointer;
+  display: flex;
+  column-gap: 10px;
+  padding: 10px;
+  border-bottom: 1px solid gray;
+}
+
+.movieCard:hover {
+  background-color: var(--primary-color);
+}
+.movieImage {
+  width: 30%;
+
+  object-fit: cover;
+}
+
+.movieTitle {
+  font-size: 1.6rem;
+  color: var(--text-color);
+}
+.movieYear {
+  font-weight: 100;
+  font-size: 1.4rem;
+  color: gray;
+}
+
+.moiveReviewContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 10px;
+  margin-top: 20px;
+}
+
+.reviews {
+  width: fit-content;
+  font-weight: 100;
+  font-size: 1.4rem;
+  color: var(--text-color);
+}

@@ -15,19 +15,19 @@ function MovieInfo() {
 
   const fetchMovieData = async (title, setMovieData, setNoMoviesFound) => {
     try {
-      const apiUrl = `http://localhost:8000/movies/search?title=${encodeURIComponent(
+      const apiUrl = `http://localhost:8000/movies/details?title=${encodeURIComponent(
         title
       )}`;
 
       // Fetch movie data from the backend
       const response = await fetch(apiUrl);
 
-      if (response.status === 404) {
+      const data = await response.json();
+      console.log(data);
+      if (data === null) {
         setNoMoviesFound(true);
         return;
       }
-      const data = await response.json();
-
       setMovieData(data);
       setNoMoviesFound(false);
     } catch (error) {
@@ -45,9 +45,26 @@ function MovieInfo() {
       <>
         <Navbar />
 
-        <p style={{ fontSize: "2rem", color: "white", textAlign: "center" }}>
-          No movies found.
-        </p>
+        <div
+          style={{
+            height: "82vh",
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <p
+            style={{
+              fontSize: "2rem",
+              color: "white",
+              textAlign: "center",
+            }}
+          >
+            No movies found!
+          </p>
+        </div>
+        <Footer />
       </>
     );
   }

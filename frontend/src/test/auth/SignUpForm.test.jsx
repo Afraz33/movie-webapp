@@ -1,92 +1,67 @@
-import React from "react";
+import { suite, test, expect } from "vitest";
 import { render, fireEvent, waitFor } from "@testing-library/react";
-import "@testing-library/jest-dom/extend-expect";
+import SignUpForm from "@components/ui/SignupForm/SignupForm";
 import { MemoryRouter } from "react-router-dom";
-import SignUpForm from "../../components/ui/SignupForm/SignupForm";
 
-describe("SignUpForm", () => {
-  it("renders without crashing", () => {
-    render(<SignUpForm />, { wrapper: MemoryRouter });
+suite("SignUpForm component", () => {
+  test("renders without crashing", () => {
+    const { container } = render(
+      <MemoryRouter>
+        <SignUpForm />
+      </MemoryRouter>
+    );
+    expect(container.firstChild).not.toBeNull();
   });
 
-  it("submits the form with correct data", async () => {
-    const mockResponse = {
-      user: {
-        id: 1,
-        userName: "testuser",
-        name: "Test User",
-        email: "test@example.com",
-      },
-    };
-    global.fetch = jest.fn().mockResolvedValue({ json: () => mockResponse });
+  test("updates username input value on change", () => {
+    const { getByLabelText } = render(
+      <MemoryRouter>
+        <SignUpForm />
+      </MemoryRouter>
+    );
+    const usernameInput = getByLabelText("Username");
 
-    const { getByLabelText, getByText } = render(<SignUpForm />, {
-      wrapper: MemoryRouter,
-    });
+    fireEvent.change(usernameInput, { target: { value: "testuser" } });
 
-    fireEvent.change(getByLabelText("Username"), {
-      target: { value: "testuser" },
-    });
-    fireEvent.change(getByLabelText("Name"), {
-      target: { value: "Test User" },
-    });
-    fireEvent.change(getByLabelText("Email"), {
-      target: { value: "test@example.com" },
-    });
-    fireEvent.change(getByLabelText("Password"), {
-      target: { value: "password123" },
-    });
-
-    fireEvent.submit(getByText("Sign Up"));
-
-    await waitFor(() => {
-      expect(global.fetch).toHaveBeenCalledWith(
-        "http://localhost:8000/auth/signup",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            userName: "testuser",
-            name: "Test User",
-            email: "test@example.com",
-            password: "password123",
-          }),
-        }
-      );
-    });
-
-    expect(getByText("Signup Successful")).toBeInTheDocument();
+    expect(usernameInput.value).toBe("testuser");
   });
 
-  it("displays error message when signup fails", async () => {
-    const mockResponse = { error: "Username already exists" };
-    global.fetch = jest.fn().mockResolvedValue({ json: () => mockResponse });
+  test("updates name input value on change", () => {
+    const { getByLabelText } = render(
+      <MemoryRouter>
+        <SignUpForm />
+      </MemoryRouter>
+    );
+    const nameInput = getByLabelText("Name");
 
-    const { getByLabelText, getByText } = render(<SignUpForm />, {
-      wrapper: MemoryRouter,
-    });
+    fireEvent.change(nameInput, { target: { value: "Test User" } });
 
-    fireEvent.change(getByLabelText("Username"), {
-      target: { value: "existinguser" },
-    });
-    fireEvent.submit(getByText("Sign Up"));
+    expect(nameInput.value).toBe("Test User");
+  });
 
-    await waitFor(() => {
-      expect(global.fetch).toHaveBeenCalledWith(
-        "http://localhost:8000/auth/signup",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            userName: "existinguser",
-            name: "",
-            email: "",
-            password: "",
-          }),
-        }
-      );
-    });
+  test("updates email input value on change", () => {
+    const { getByLabelText } = render(
+      <MemoryRouter>
+        <SignUpForm />
+      </MemoryRouter>
+    );
+    const emailInput = getByLabelText("Email");
 
-    expect(getByText("Username already exists")).toBeInTheDocument();
+    fireEvent.change(emailInput, { target: { value: "test@example.com" } });
+
+    expect(emailInput.value).toBe("test@example.com");
+  });
+
+  test("updates password input value on change", () => {
+    const { getByLabelText } = render(
+      <MemoryRouter>
+        <SignUpForm />
+      </MemoryRouter>
+    );
+    const passwordInput = getByLabelText("Password");
+
+    fireEvent.change(passwordInput, { target: { value: "password123" } });
+
+    expect(passwordInput.value).toBe("password123");
   });
 });

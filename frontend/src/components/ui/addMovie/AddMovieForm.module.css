@@ -4,8 +4,8 @@
   row-gap: 10px;
   /* justify-content: center; */
   align-items: center;
-  height: 100vh;
-  padding: 10px;
+  height: max-content;
+  padding: 50px;
   justify-content: center;
   background-color: white;
 }

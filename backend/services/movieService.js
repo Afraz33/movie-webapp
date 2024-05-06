@@ -15,17 +15,26 @@ const getAllMovies = async () => {
   }
 };
 
-// Function to search movies by title
-const searchMoviesByTitle = async (title) => {
+// Function to get a movie movies by title
+const getMovieByTitle = async (title) => {
   try {
-    if (!title) {
-      throw new Error("title required");
-    }
-
     const moviesByTitle = await Movies.findOne({
-      title: { $regex: title, $options: "i" },
+      title: title,
     });
     return moviesByTitle;
+  } catch (error) {
+    throw error;
+  }
+};
+
+//function to search movies with a provided string
+//list of movies that have the string will be provided
+const searchMovies = async (word) => {
+  try {
+    const movies = await Movies.find({
+      title: { $regex: word, $options: "i" },
+    });
+    return movies;
   } catch (error) {
     throw error;
   }
@@ -34,10 +43,6 @@ const searchMoviesByTitle = async (title) => {
 // Function to create a new movie
 const createMovie = async (movieData) => {
   try {
-    if (!movieData.title || !movieData.description || !movieData.year) {
-      throw new Error("Missing required fields");
-    }
-
     const existingMovie = await Movies.findOne({ title: movieData.title });
     if (existingMovie) {
       throw new Error("Movie with the same name already exists");
@@ -53,10 +58,6 @@ const createMovie = async (movieData) => {
 // Function to delete a movie
 const deleteMovie = async (title) => {
   try {
-    if (!title) {
-      throw new Error("title required");
-    }
-
     const deletedMovie = await Movies.findOneAndDelete({ title: title });
 
     if (!deletedMovie) {
@@ -99,8 +100,9 @@ async function getTopReviewedMovies(limit = 10) {
 
 module.exports = {
   getAllMovies,
-  searchMoviesByTitle,
+  searchMovies,
   createMovie,
   deleteMovie,
   getTopReviewedMovies,
+  getMovieByTitle,
 };

@@ -1,19 +1,29 @@
-//lazy loading
+import React from "react";
+import { Router, Routes, Route, Navigate } from "react-router-dom";
 import withLazy from "../components/common/Loadable";
 
-//Project Imports
+// Project Imports
 const MovieInfo = withLazy(() => import("../pages/movie/MovieInfo"));
 const AddMovie = withLazy(() => import("../pages/movie/AddMovie"));
+const PageNotFound = withLazy(() => import("../pages/PageNotFound"));
 
-const MoviesRoutes = [
-  {
-    path: "/movie/:title",
-    element: <MovieInfo />,
-  },
-  {
-    path: "/movie/add",
-    element: <AddMovie />,
-  },
-];
+const MoviesRoutes = () => {
+  return (
+    <Routes>
+      <Route path="/*" element={<SearchMovies />} />
+      <Route path="/add" element={<AddMovie />} />
+      <Route path="*" element={<PageNotFound />} />
+    </Routes>
+  );
+};
+
+const SearchMovies = () => {
+  return (
+    <Routes>
+      <Route path="/" element={<PageNotFound />} />
+      <Route path=":title" element={<MovieInfo />} />
+    </Routes>
+  );
+};
 
 export default MoviesRoutes;

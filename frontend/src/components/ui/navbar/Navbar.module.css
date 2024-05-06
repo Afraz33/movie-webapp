@@ -206,9 +206,10 @@
   position: absolute;
   top: 60px;
   left: 25%;
-  z-index: 9999 !important;
+  z-index: 9999;
   width: 40%;
   margin: 0 auto;
+
 }
 
 @media screen and (max-width: 1200px) {

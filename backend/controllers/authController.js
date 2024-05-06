@@ -5,6 +5,15 @@ const signup = async (req, res) => {
   try {
     const { name, userName, email, password } = req.body;
 
+    // Validations for all properties on data such as not null
+    //password limit
+    if (!name || !userName || !email || !password) {
+      throw new Error("Missing required fields");
+    }
+    //password lenght ===6 or not?
+    if (password.length < 6) {
+      throw new Error("Password must be at least 6 characters long");
+    }
     //createUser service function
     const newUser = await authService.createUser({
       name,
@@ -26,6 +35,12 @@ const signup = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
+    if (!email || !password) {
+      throw new Error("Missing required fields");
+    }
+    if (password.length < 6) {
+      throw new Error("Password must be at least 6 characters long");
+    }
 
     //get user Details
     const userDetails = await authService.authenticateUser(email, password);

@@ -1,10 +1,11 @@
 const { verify } = require("jsonwebtoken");
 const {
   addMovie,
-  deleteMovie,
+  getMovieInfo,
   getAllMovies,
-  searchMoviesByTitle,
+  searchMovies,
   getTopReviewedMovies,
+  deleteMovieAndReviews,
 } = require("../controllers/movieController");
 
 const { verifyUser } = require("../middleware/authMiddleware");
@@ -16,7 +17,7 @@ const movieRoutes = require("express").Router();
 movieRoutes.post("/", addMovie);
 
 // Route for deleting a movie by title
-movieRoutes.delete("/:title", verifyUser, deleteMovie);
+movieRoutes.delete("/:title", verifyUser, deleteMovieAndReviews);
 
 // Route for retrieving all movies
 movieRoutes.get("/", getAllMovies);
@@ -24,6 +25,10 @@ movieRoutes.get("/", getAllMovies);
 // Route for retrieving top viewed
 movieRoutes.get("/top-reviewed", getTopReviewedMovies);
 
-// Route for searching movies by title
-movieRoutes.get("/search", searchMoviesByTitle);
+// Route for searching movies by for a random string
+movieRoutes.get("/search", searchMovies);
+
+//get a particular movie info from title
+movieRoutes.get("/details", getMovieInfo);
+
 module.exports = movieRoutes;

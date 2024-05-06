@@ -10,13 +10,6 @@ const generateReviewId = () => {
 
 //createReview
 const addReview = async (reviewData) => {
-  if (
-    !reviewData.reviewText ||
-    !reviewData.movieTitle ||
-    !reviewData.userName
-  ) {
-    throw new Error("Missing required fields");
-  }
   try {
     const reviewId = generateReviewId();
     const newReview = new Reviews({
@@ -35,10 +28,6 @@ const addReview = async (reviewData) => {
 // Function to fetch all reviews for a movie
 const getAllReviewsForMovie = async (movieTitle) => {
   try {
-    if (!movieTitle) {
-      throw new Error("Movie title required");
-    }
-
     const allReviews = await Reviews.find({ movieTitle });
     return allReviews;
   } catch (error) {
@@ -49,13 +38,6 @@ const getAllReviewsForMovie = async (movieTitle) => {
 // Function to fetch all reviews for a user for a particular movie
 const getAllReviewsForUserForMovie = async (userName, movieTitle) => {
   try {
-    if (!userName) {
-      throw new Error("User name required");
-    }
-    if (!movieTitle) {
-      throw new Error("Movie Title required");
-    }
-
     const reviewsForUser = await Reviews.find({ userName, movieTitle });
     return reviewsForUser;
   } catch (error) {
@@ -66,10 +48,6 @@ const getAllReviewsForUserForMovie = async (userName, movieTitle) => {
 //get all user reviews for all movies
 const getAllReviewsForUser = async (userName) => {
   try {
-    if (!userName) {
-      throw new Error("User name required");
-    }
-
     const reviewsForUser = await Reviews.find({ userName });
     return reviewsForUser;
   } catch (error) {
@@ -80,13 +58,6 @@ const getAllReviewsForUser = async (userName) => {
 // Function to update a review
 const updateReview = async (reviewId, reviewText) => {
   try {
-    if (!reviewId) {
-      throw new Error("Review ID required");
-    }
-    if (!reviewText) {
-      throw new Error("Updated Review text required");
-    }
-
     const updatedReviewData = await Reviews.findOneAndUpdate(
       { reviewId: reviewId },
       { reviewText: reviewText },
@@ -101,10 +72,6 @@ const updateReview = async (reviewId, reviewText) => {
 // Function to delete a review
 const deleteReview = async (reviewId) => {
   try {
-    if (!reviewId) {
-      throw new Error("Review ID required");
-    }
-
     const deletedReview = await Reviews.findOneAndDelete({
       reviewId: reviewId,
     });
@@ -118,6 +85,18 @@ const deleteReview = async (reviewId) => {
   }
 };
 
+//function to delete all reviews for a movie when movie is deleted
+const deleteAllReviews = async (movieTitle) => {
+  try {
+    const deletedReviews = await Reviews.deleteMany({ movieTitle });
+    if (!deletedReviews) {
+      throw new Error("Error deleting reviews");
+    }
+    return deletedReviews;
+  } catch (error) {
+    throw error;
+  }
+};
 module.exports = {
   addReview,
   getAllReviewsForMovie,
@@ -125,4 +104,5 @@ module.exports = {
   getAllReviewsForUser,
   updateReview,
   deleteReview,
+  deleteAllReviews,
 };

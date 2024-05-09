@@ -62,7 +62,7 @@ npm run test
 
 
 ### Backend
-1. To test fbackend, navigate to backend folder:
+1. To test backend, navigate to backend folder:
 ```bash
 cd backend
 ```

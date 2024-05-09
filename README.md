@@ -65,7 +65,7 @@ npm run dev
  ```
 
 ## Access the app
-After containers have successfully been created and are running, you can access the app with this url on your device
+You can access the app with this url on your device.
 ```bash
 http://localhost:5000/
 ```

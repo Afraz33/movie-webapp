@@ -19,6 +19,8 @@ Before running the application, ensure you have Docker Desktop installed on your
 
 
 ## Usage
+
+### With Docker
 1. Navigate to the project directory:
 
     ```bash
@@ -32,6 +34,35 @@ Before running the application, ensure you have Docker Desktop installed on your
 ```bash
 docker-compose up -d
 ```
+
+### Running Locally
+#### Backend
+1. Go to backend folder:
+ ```bash
+cd backend
+ ```
+2. Install Dependencies
+  ```bash
+npm i
+ ```
+3. Start the server:
+  ```bash
+npm start
+ ```
+
+#### Frontend
+1. Go to frontend folder:
+ ```bash
+cd frontend
+ ```
+2. Install Dependencies
+  ```bash
+npm i
+ ```
+3. Run the following command on terminal:
+  ```bash
+npm run dev
+ ```
 
 ## Access the app
 After containers have successfully been created and are running, you can access the app with this url on your device

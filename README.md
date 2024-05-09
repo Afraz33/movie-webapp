@@ -44,15 +44,34 @@ http://localhost:5000/
 ```
 
 ## Testing
-1. Frontend
-To test frontend, navigate to frontend folder:
+### Frontend
+1. To test frontend, navigate to frontend folder:
 ```bash
 cd frontend
 ```
-Run the command in your terminal:
+2. Insatll dependencies by running the following command in terminal
+```bash
+npm i
+```
+
+3. Run the command in your terminal:
 ```bash
 npm run test
 ```
+### Backend
+1. To test fbackend, navigate to backend folder:
+```bash
+cd backend
+```
+2. Insatll dependencies by running the following command in terminal
+```bash
+npm i
+```
+3. Run the command in your terminal:
+```bash
+npm run test
+```
+
 
 ### Troubleshooting
 The docker container for frontend runs on port 5000 and docker container for backend runs on 8000. Make sure that no other services are utilizing these ports. If so, the app containers won't run and app won't be accessible or will be accessible with limited functionality.

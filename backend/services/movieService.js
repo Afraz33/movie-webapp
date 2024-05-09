@@ -88,7 +88,13 @@ async function getTopReviewedMovies(limit = 10) {
       topReviewedMovies.map(async (movie) => {
         const movieData = await Movies.findOne({ title: movie._id });
         const year = movieData ? movieData.year : null;
-        return { movieTitle: movie._id, reviewCount: movie.reviewCount, year };
+        const imageUrl = movieData ? movieData.imageUrl : null;
+        return {
+          movieTitle: movie._id,
+          reviewCount: movie.reviewCount,
+          year,
+          imageUrl,
+        };
       })
     );
 

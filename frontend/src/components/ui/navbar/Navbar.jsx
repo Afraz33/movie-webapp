@@ -22,9 +22,9 @@ function Navbar() {
   //fetch movies on search
   const fetchMovieData = async (searchQuery) => {
     try {
-      const apiUrl = `http://localhost:8000/movies/search?title=${encodeURIComponent(
-        searchQuery
-      )}`;
+      const apiUrl = `${
+        import.meta.env.VITE_API_URL
+      }/movies/search?title=${encodeURIComponent(searchQuery)}`;
 
       // Fetch movie data from the backend
       const response = await fetch(apiUrl, { signal: abortController.signal });
@@ -67,12 +67,10 @@ function Navbar() {
 
   // Handler function to handle search functionality
   const handleSearch = () => {
+    setSearchResultsOpen(false);
     const movieUrl = `/movie/${encodeURIComponent(searchQuery)}`;
 
-    // const inputValue = e.target.value;
-    if (searchQuery.length >= 3) {
-      navigate(movieUrl);
-    }
+    navigate(movieUrl);
   };
 
   useEffect(() => {
@@ -113,9 +111,10 @@ function Navbar() {
     <>
       <nav className={navbarStyles.nav}>
         {/* Logo */}
-        <div className={navbarStyles.logo}>
-          <Link to="/">Movify</Link>
-        </div>
+
+        <Link className={navbarStyles.logo} to="/">
+          Movify
+        </Link>
 
         {/* Search Bar */}
         <div className={navbarStyles.navSearchForm} ref={searchRef}>

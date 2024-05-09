@@ -8,7 +8,12 @@ function MovieDetails({ movieData }) {
   return (
     <div className={styles.container}>
       <div className={styles.movieInfoContainer}>
-        <img className={styles.movieImage} src={movieData.imageUrl} />
+        <img
+          style={{ color: "white", fontSize: "10px" }}
+          className={styles.movieImage}
+          src={movieData.imageUrl}
+          alt={movieData.imageUrl}
+        />
         <div className={styles.movieInfo}>
           <p className={styles.movieTitle}>{movieData.title}</p>
           <p className={styles.movieYear}>{movieData.year}</p>

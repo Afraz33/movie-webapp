@@ -1,143 +1,149 @@
-const {
-  addReview,
-  getAllReviewsForMovie,
-  getAllReviewsForUserForMovie,
-  getAllReviewsForUser,
-  updateReview,
-  deleteReview,
-} = require("../services/reviewService");
+// reviewService.test.js
+
+const reviewService = require("../services/reviewService");
 const Reviews = require("../models/reviewModel");
+const uuid = require("uuid");
 
-// Mocking the ReviewModel's find, findOne, save, findOneAndUpdate, and findOneAndDelete functions
-jest.mock("../models/reviewModel", () => ({
-  find: jest.fn(),
-  findOne: jest.fn(),
-  save: jest.fn(),
-  findOneAndUpdate: jest.fn(),
-  findOneAndDelete: jest.fn(),
-}));
+jest.mock("../models/reviewModel");
+jest.mock("uuid");
 
-// Tests for addReview function
-describe("addReview function", () => {
-  it("should add a new review", async () => {
-    // Mocking the input review data
-    const reviewData = {
-      reviewText: "Great movie!",
-      movieTitle: "Movie Title",
-      userName: "User Name",
-    };
+describe("Review Service", () => {
+  describe("getAllReviewsForMovie", () => {
+    it("should fetch all reviews for a movie", async () => {
+      const mockReviews = [
+        { reviewText: "Great movie!" },
+        { reviewText: "Awesome!" },
+      ];
+      Reviews.find.mockResolvedValue(mockReviews);
 
-    // Mocking the saved review
-    const savedReview = { ...reviewData, reviewId: "reviewId" };
-    Reviews.save.mockResolvedValue(savedReview);
+      const result = await reviewService.getAllReviewsForMovie("Movie 1");
 
-    // Call the addReview function
-    const result = await addReview(reviewData);
+      expect(result).toEqual(mockReviews);
+    });
 
-    // Assert that the result matches the saved review
-    expect(result).toEqual(savedReview);
+    it("should throw an error if fetching reviews fails", async () => {
+      Reviews.find.mockRejectedValue(new Error("Database error"));
+
+      await expect(
+        reviewService.getAllReviewsForMovie("Movie 1")
+      ).rejects.toThrow("Database error");
+    });
   });
 
-  // Add more test cases for addReview function as needed
-});
+  describe("getAllReviewsForUserForMovie", () => {
+    it("should fetch all reviews for a user for a particular movie", async () => {
+      const mockReviews = [
+        { reviewText: "Great movie!" },
+        { reviewText: "Awesome!" },
+      ];
+      Reviews.find.mockResolvedValue(mockReviews);
 
-// Tests for getAllReviewsForMovie function
-describe("getAllReviewsForMovie function", () => {
-  it("should fetch all reviews for a movie", async () => {
-    // Mocking the input movie title and the returned reviews
-    const movieTitle = "Movie Title";
-    const reviews = [
-      { reviewText: "Great movie!" },
-      { reviewText: "Awesome!" },
-    ];
-    Reviews.find.mockResolvedValue(reviews);
+      const result = await reviewService.getAllReviewsForUserForMovie(
+        "user1",
+        "Movie 1"
+      );
 
-    // Call the getAllReviewsForMovie function
-    const result = await getAllReviewsForMovie(movieTitle);
+      expect(result).toEqual(mockReviews);
+    });
 
-    // Assert that the result matches the returned reviews
-    expect(result).toEqual(reviews);
+    it("should throw an error if fetching reviews fails", async () => {
+      Reviews.find.mockRejectedValue(new Error("Database error"));
+
+      await expect(
+        reviewService.getAllReviewsForUserForMovie("user1", "Movie 1")
+      ).rejects.toThrow("Database error");
+    });
   });
 
-  // Add more test cases for getAllReviewsForMovie function as needed
-});
+  describe("getAllReviewsForUser", () => {
+    it("should fetch all reviews for a user", async () => {
+      const mockReviews = [
+        { reviewText: "Great movie!" },
+        { reviewText: "Awesome!" },
+      ];
+      Reviews.find.mockResolvedValue(mockReviews);
 
-// Tests for getAllReviewsForUserForMovie function
-describe("getAllReviewsForUserForMovie function", () => {
-  it("should fetch all reviews for a user for a movie", async () => {
-    // Mocking the input user name, movie title, and the returned reviews
-    const userName = "User Name";
-    const movieTitle = "Movie Title";
-    const reviews = [
-      { reviewText: "Great movie!" },
-      { reviewText: "Awesome!" },
-    ];
-    Reviews.find.mockResolvedValue(reviews);
+      const result = await reviewService.getAllReviewsForUser("user1");
 
-    // Call the getAllReviewsForUserForMovie function
-    const result = await getAllReviewsForUserForMovie(userName, movieTitle);
+      expect(result).toEqual(mockReviews);
+    });
 
-    // Assert that the result matches the returned reviews
-    expect(result).toEqual(reviews);
+    it("should throw an error if fetching reviews fails", async () => {
+      Reviews.find.mockRejectedValue(new Error("Database error"));
+
+      await expect(reviewService.getAllReviewsForUser("user1")).rejects.toThrow(
+        "Database error"
+      );
+    });
   });
 
-  // Add more test cases for getAllReviewsForUserForMovie function as needed
-});
+  describe("updateReview", () => {
+    it("should update a review", async () => {
+      const updatedReviewData = { reviewText: "Updated review!" };
+      const mockUpdatedReview = {
+        reviewText: "Updated review!",
+        reviewId: "review_id",
+      };
+      Reviews.findOneAndUpdate.mockResolvedValue(mockUpdatedReview);
 
-// Tests for getAllReviewsForUser function
-describe("getAllReviewsForUser function", () => {
-  it("should fetch all reviews for a user", async () => {
-    // Mocking the input user name and the returned reviews
-    const userName = "User Name";
-    const reviews = [
-      { reviewText: "Great movie!" },
-      { reviewText: "Awesome!" },
-    ];
-    Reviews.find.mockResolvedValue(reviews);
+      const result = await reviewService.updateReview(
+        "review_id",
+        "Updated review!"
+      );
 
-    // Call the getAllReviewsForUser function
-    const result = await getAllReviewsForUser(userName);
+      expect(result).toEqual(mockUpdatedReview);
+    });
 
-    // Assert that the result matches the returned reviews
-    expect(result).toEqual(reviews);
+    it("should throw an error if updating review fails", async () => {
+      Reviews.findOneAndUpdate.mockRejectedValue(new Error("Database error"));
+
+      await expect(
+        reviewService.updateReview("review_id", "Updated review!")
+      ).rejects.toThrow("Database error");
+    });
   });
 
-  // Add more test cases for getAllReviewsForUser function as needed
-});
+  describe("deleteReview", () => {
+    it("should delete a review", async () => {
+      const deletedReview = {
+        reviewText: "Deleted review!",
+        reviewId: "review_id",
+      };
+      Reviews.findOneAndDelete.mockResolvedValue(deletedReview);
 
-// Tests for updateReview function
-describe("updateReview function", () => {
-  it("should update a review", async () => {
-    // Mocking the input review ID, updated review text, and the updated review
-    const reviewId = "reviewId";
-    const updatedReviewText = "Updated review text";
-    const updatedReview = { reviewId, reviewText: updatedReviewText };
-    Reviews.findOneAndUpdate.mockResolvedValue(updatedReview);
+      const result = await reviewService.deleteReview("review_id");
 
-    // Call the updateReview function
-    const result = await updateReview(reviewId, updatedReviewText);
+      expect(result).toEqual(deletedReview);
+    });
 
-    // Assert that the result matches the updated review
-    expect(result).toEqual(updatedReview);
+    it("should throw an error if deleting review fails", async () => {
+      Reviews.findOneAndDelete.mockRejectedValue(new Error("Database error"));
+
+      await expect(reviewService.deleteReview("review_id")).rejects.toThrow(
+        "Database error"
+      );
+    });
   });
 
-  // Add more test cases for updateReview function as needed
-});
+  describe("deleteAllReviews", () => {
+    it("should delete all reviews for a movie", async () => {
+      const deletedReviews = [
+        { reviewText: "Deleted review 1" },
+        { reviewText: "Deleted review 2" },
+      ];
+      Reviews.deleteMany.mockResolvedValue(deletedReviews);
 
-// Tests for deleteReview function
-describe("deleteReview function", () => {
-  it("should delete a review", async () => {
-    // Mocking the input review ID and the deleted review
-    const reviewId = "reviewId";
-    const deletedReview = { reviewId, reviewText: "Deleted review" };
-    Reviews.findOneAndDelete.mockResolvedValue(deletedReview);
+      const result = await reviewService.deleteAllReviews("Movie 1");
 
-    // Call the deleteReview function
-    const result = await deleteReview(reviewId);
+      expect(result).toEqual(deletedReviews);
+    });
 
-    // Assert that the result matches the deleted review
-    expect(result).toEqual(deletedReview);
+    it("should throw an error if deleting reviews fails", async () => {
+      Reviews.deleteMany.mockRejectedValue(new Error("Database error"));
+
+      await expect(reviewService.deleteAllReviews("Movie 1")).rejects.toThrow(
+        "Database error"
+      );
+    });
   });
-
-  // Add more test cases for deleteReview function as needed
 });

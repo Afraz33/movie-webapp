@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import styles from "./MovieReviewsList.module.css";
 import { IoMdAdd } from "react-icons/io";
 
+//toast
+import { toast, ToastContainer } from "react-toastify";
+
 // Project import
 import MovieReviews from "../movieReviews/MovieReviews";
 
@@ -20,7 +23,9 @@ function MovieReviewsList({ movieTitle }) {
   const fetchReviews = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8000/reviews/movie/${encodeURIComponent(movieTitle)}`
+        `${import.meta.env.VITE_API_URL}/reviews/movie/${encodeURIComponent(
+          movieTitle
+        )}`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch reviews");
@@ -40,7 +45,7 @@ function MovieReviewsList({ movieTitle }) {
   const handleDeleteReview = async (reviewId) => {
     try {
       const response = await fetch(
-        `http://localhost:8000/reviews/${reviewId}`,
+        `${import.meta.env.VITE_API_URL}/reviews/${reviewId}`,
         {
           method: "DELETE",
           headers: {
@@ -62,7 +67,7 @@ function MovieReviewsList({ movieTitle }) {
   const handleUpdateReview = async (reviewId, updatedText) => {
     try {
       const response = await fetch(
-        `http://localhost:8000/reviews/${reviewId}`,
+        `${import.meta.env.VITE_API_URL}/reviews/${reviewId}`,
         {
           method: "PUT",
           headers: {
@@ -86,7 +91,11 @@ function MovieReviewsList({ movieTitle }) {
   const handleAddText = () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/auth/login");
+      notifyInfo();
+      setTimeout(() => {
+        navigate("/auth/login");
+      }, 1500);
+
       return;
     }
     setIsAddingReview(true);
@@ -99,7 +108,7 @@ function MovieReviewsList({ movieTitle }) {
     }
 
     try {
-      const response = await fetch("http://localhost:8000/reviews", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/reviews`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -124,53 +133,62 @@ function MovieReviewsList({ movieTitle }) {
     }
   };
 
+  const notifyInfo = () => {
+    toast.info("You need to login first", {
+      position: "top-center",
+    });
+  };
+
   return (
-    <section className={styles.container}>
-      <div className={styles.reviewsList}>
-        {reviews.length === 0 ? (
-          <div className={styles.noReviews}>
-            <h2>No Reviews</h2>
+    <>
+      <section className={styles.container}>
+        <div className={styles.reviewsList}>
+          {reviews.length === 0 ? (
+            <div className={styles.noReviews}>
+              <h2>No Reviews</h2>
+            </div>
+          ) : (
+            <p className={styles.heading}>Reviews</p>
+          )}
+
+          {reviews?.map((review, index) => (
+            <MovieReviews
+              onDelete={handleDeleteReview}
+              onUpdate={handleUpdateReview}
+              key={index}
+              review={review}
+            />
+          ))}
+        </div>
+
+        {isAddingReview ? (
+          <div className={styles.addReviewContainer}>
+            <textarea
+              className={styles.reviewTextEdit}
+              value={newReviewText}
+              onChange={(e) => setNewReviewText(e.target.value)}
+            />
+            <div className={styles.reviewActions}>
+              <button className={styles.save} onClick={handleAddReview}>
+                Add
+              </button>
+              <button
+                className={styles.cancel}
+                onClick={() => setIsAddingReview(false)}
+              >
+                Cancel
+              </button>
+            </div>
           </div>
         ) : (
-          <p className={styles.heading}>Reviews</p>
+          <button className={styles.addMovie} onClick={handleAddText}>
+            {" "}
+            Add a review <IoMdAdd />
+          </button>
         )}
-
-        {reviews?.map((review, index) => (
-          <MovieReviews
-            onDelete={handleDeleteReview}
-            onUpdate={handleUpdateReview}
-            key={index}
-            review={review}
-          />
-        ))}
-      </div>
-
-      {isAddingReview ? (
-        <div className={styles.addReviewContainer}>
-          <textarea
-            className={styles.reviewTextEdit}
-            value={newReviewText}
-            onChange={(e) => setNewReviewText(e.target.value)}
-          />
-          <div className={styles.reviewActions}>
-            <button className={styles.save} onClick={handleAddReview}>
-              Add
-            </button>
-            <button
-              className={styles.cancel}
-              onClick={() => setIsAddingReview(false)}
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      ) : (
-        <button className={styles.addMovie} onClick={handleAddText}>
-          {" "}
-          Add a review <IoMdAdd />
-        </button>
-      )}
-    </section>
+      </section>
+      <ToastContainer autoClose={1500} />
+    </>
   );
 }
 

@@ -5,3 +5,14 @@
   aspect-ratio: 16/9;
   border: none;
 }
+
+.trailerIframeError {
+  width: 100%;
+  object-fit: cover;
+  height: 100%;
+  aspect-ratio: 16/9;
+  border: 1px solid var(--primary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

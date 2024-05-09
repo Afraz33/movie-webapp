@@ -28,6 +28,7 @@ function SearchMovieCard({ setSearchResultsOpen, movie, imageIndex }) {
     <div onClick={handleClick} className={movieCardStyles.movieCard}>
       {/* Display the movie image */}
       <img
+        style={{ color: "white", fontSize: "10px" }}
         className={movieCardStyles.movieImage}
         src={movie.imageUrl}
         alt={movie.title} // Add alt text for accessibility

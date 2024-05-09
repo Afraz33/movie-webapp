@@ -15,7 +15,7 @@ function ReviewedMovieList() {
     async function fetchTopReviewedMovies() {
       try {
         const response = await fetch(
-          "http://localhost:8000/movies/top-reviewed"
+          `${import.meta.env.VITE_API_URL}/movies/top-reviewed`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch top reviewed movies");

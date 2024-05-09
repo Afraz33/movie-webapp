@@ -1,85 +1,93 @@
+// authService.test.js
+
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { createUser, authenticateUser } = require("../services/authService");
+const authService = require("../services/authService");
 const Users = require("../models/userModel");
+const request = require("supertest");
+const app = require("../app");
 
-// Mocking the UserModel's findOne and save functions
-jest.mock("../models/userModel", () => ({
-  findOne: jest.fn(),
-}));
+jest.mock("bcrypt");
+jest.mock("jsonwebtoken");
+jest.mock("../models/userModel");
 
-// Mocking bcrypt's hash and compare functions
-jest.mock("bcrypt", () => ({
-  hash: jest.fn(),
-  compare: jest.fn(),
-}));
+describe("Authentication Service", () => {
+  describe("createUser", () => {
+    it("should create a new user", async () => {
+      const userData = {
+        name: "Test User",
+        userName: "testuser",
+        email: "test@example.com",
+        password: "password123",
+      };
 
-// Mocking jwt's sign function
-jest.mock("jsonwebtoken", () => ({
-  sign: jest.fn(),
-}));
+      const newUser = { ...userData, _id: "user_id" };
+      Users.findOne.mockResolvedValue(null);
+      bcrypt.hash.mockResolvedValue("hashedPassword");
+      Users.prototype.save.mockResolvedValue(newUser);
 
-// Tests for createUser function
-describe("createUser function", () => {
-  it("should create a new user and return the user object", async () => {
-    // Mocking the input user data
-    const userData = {
-      name: "John Doe",
-      userName: "johndoe",
-      email: "john@example.com",
-      password: "password123",
-    };
+      const result = await authService.createUser(userData);
 
-    // Mocking the returned user object from findOne function (no existing user with the same email or username)
-    Users.findOne.mockResolvedValue(null);
+      expect(result).toEqual(newUser);
+    });
 
-    // Mocking the hashed password
-    bcrypt.hash.mockResolvedValue("hashedPassword");
+    it("should throw an error if email already exists", async () => {
+      Users.findOne.mockResolvedValue(true);
 
-    // Mocking the saved user object
-    const savedUser = {
-      name: "John Doe",
-      userName: "johndoe",
-      email: "john@example.com",
-      password: "hashedPassword",
-    };
-    Users.save.mockResolvedValue(savedUser);
-
-    // Call the createUser function
-    const result = await createUser(userData);
-
-    // Assert that the result matches the saved user object
-    expect(result).toEqual(savedUser);
+      await expect(
+        authService.createUser({ email: "test@example.com" })
+      ).rejects.toThrow("Email already exists");
+    });
   });
 
-  // Add more test cases for createUser function as needed
+  describe("authenticateUser", () => {
+    it("should authenticate a user", async () => {
+      const user = {
+        userName: "testuser",
+        email: "test@example.com",
+        password: "hashedPassword",
+      };
+      Users.findOne.mockResolvedValue(user);
+      bcrypt.compare.mockResolvedValue(true);
+      jwt.sign.mockReturnValue("token");
+
+      const result = await authService.authenticateUser(
+        "test@example.com",
+        "password123"
+      );
+
+      expect(result).toEqual({
+        token: "token",
+        userName: "testuser",
+        email: "test@example.com",
+      });
+    });
+
+    it("should throw an error if user not found", async () => {
+      Users.findOne.mockResolvedValue(null);
+
+      await expect(
+        authService.authenticateUser("test@example.com", "password123")
+      ).rejects.toThrow("User not found");
+    });
+  });
 });
 
-// Tests for authenticateUser function
-describe("authenticateUser function", () => {
-  it("should authenticate a user and return a token and user information", async () => {
-    // Mocking the input email and password
-    const email = "john@example.com";
-    const password = "password123";
+describe("Authentication Controller", () => {
+  describe("POST /auth/signup", () => {
+    it("should create a new user", async () => {
+      const userData = {
+        name: "Test User",
+        userName: "testuser",
+        email: "test@example.com",
+        password: "password123",
+      };
 
-    const user = {
-      userName: "johndoe",
-      email: "john@example.com",
-      password: "hashedPassword",
-    };
-    Users.findOne.mockResolvedValue(user);
+      const response = await request(app).post("/auth/signup").send(userData);
 
-    // Mocking the password comparison
-    bcrypt.compare.mockResolvedValue(true);
-
-    jwt.sign.mockReturnValue("mockedToken");
-
-    const result = await authenticateUser(email, password);
-
-    expect(result).toEqual({
-      token: "mockedToken",
-      userName: "johndoe",
-      email: "john@example.com",
+      expect(response.status).toBe(201);
+      expect(response.body.message).toBe("User successfully created");
+      expect(response.body.user).toMatchObject(userData);
     });
   });
 });

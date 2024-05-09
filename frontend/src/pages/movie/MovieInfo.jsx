@@ -15,9 +15,9 @@ function MovieInfo() {
 
   const fetchMovieData = async (title, setMovieData, setNoMoviesFound) => {
     try {
-      const apiUrl = `http://localhost:8000/movies/details?title=${encodeURIComponent(
-        title
-      )}`;
+      const apiUrl = `${
+        import.meta.env.VITE_API_URL
+      }/movies/details?title=${encodeURIComponent(title)}`;
 
       // Fetch movie data from the backend
       const response = await fetch(apiUrl);

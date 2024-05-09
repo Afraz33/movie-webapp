@@ -64,7 +64,7 @@ function AddMovieForm() {
     }
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:8000/movies`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/movies`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -153,7 +153,7 @@ function AddMovieForm() {
           </div>
           {/* image */}
           <div className={styles.inputContainer}>
-            <label htmlFor="imageUrl">Image Url</label>
+            <label htmlFor="Image Url">Image Url</label>
             <input
               name="imageUrl"
               id="Image Url"

@@ -1,5 +1,6 @@
 import { suite, test, expect } from "vitest";
 import { render, fireEvent, waitFor } from "@testing-library/react";
+import "@testing-library/jest-dom";
 import LoginForm from "@components/ui/LoginForm/LoginForm";
 import { MemoryRouter } from "react-router-dom"; // Import MemoryRouter
 suite("LoginForm component", () => {
@@ -18,7 +19,6 @@ suite("LoginForm component", () => {
     const { getByLabelText } = render(
       <MemoryRouter>
         {" "}
-        {/* Wrap the LoginForm component with MemoryRouter */}
         <LoginForm />
       </MemoryRouter>
     );
@@ -33,7 +33,6 @@ suite("LoginForm component", () => {
     const { getByLabelText } = render(
       <MemoryRouter>
         {" "}
-        {/* Wrap the LoginForm component with MemoryRouter */}
         <LoginForm />
       </MemoryRouter>
     );

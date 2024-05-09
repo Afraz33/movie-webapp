@@ -14,7 +14,7 @@ function Home() {
 
   const fetchMovies = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/movies`);
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/movies`);
       if (!response.ok) {
         throw new Error("Failed to fetch movies");
       }

@@ -39,7 +39,9 @@ function MovieFunctions({ movieTitle }) {
 
       try {
         const response = await fetch(
-          `http://localhost:8000/movies/${encodeURIComponent(movieTitle)}`,
+          `${import.meta.env.VITE_API_URL}/movies/${encodeURIComponent(
+            movieTitle
+          )}`,
           {
             method: "DELETE",
             headers: {

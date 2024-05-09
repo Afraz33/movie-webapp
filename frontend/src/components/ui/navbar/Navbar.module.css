@@ -13,10 +13,11 @@
   background-color: var(--primary-color);
   padding: 5px 10px;
   border-radius: 5px;
+  text-decoration: none;
+  color: white;
 }
 .logo:hover {
   background-color: var(--secondary-color);
-  color: var(--primary-color);
 }
 
 .logo a {
@@ -209,7 +210,6 @@
   z-index: 9999;
   width: 40%;
   margin: 0 auto;
-
 }
 
 @media screen and (max-width: 1200px) {

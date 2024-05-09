@@ -1,6 +1,7 @@
 import { suite, test, expect } from "vitest";
 import { render, fireEvent, waitFor } from "@testing-library/react";
 import SignUpForm from "@components/ui/SignupForm/SignupForm";
+import "@testing-library/jest-dom";
 import { MemoryRouter } from "react-router-dom";
 
 suite("SignUpForm component", () => {

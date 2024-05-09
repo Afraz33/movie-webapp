@@ -22,7 +22,12 @@ function MovieCard({ movie, imageIndex }) {
     <div className={movieCardStyles.movieCard} onClick={handleClick}>
       {/* Movie image */}
       <div>
-        <img className={movieCardStyles.movieImage} src={movie.imageUrl} />
+        <img
+          style={{ color: "white", fontSize: "10px" }}
+          className={movieCardStyles.movieImage}
+          src={movie.imageUrl}
+          alt={movie.imageUrl}
+        />
       </div>
       {/* Movie details */}
       <div className={movieCardStyles.movieTextContainer}>

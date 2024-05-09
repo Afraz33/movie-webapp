@@ -14,11 +14,7 @@ Before running the application, ensure you have Docker Desktop installed on your
     ```bash
     git clone https://github.com/Afraz33/movie-webapp.git
     ```
-2. Navigate to backend directory 
-     ```bash
-    cd backend
-    ```
-    Paste your .env file with variables SECRET_KEY and MONGO_URI
+2. Configure your .env files for backend and frontend.
    
 
 

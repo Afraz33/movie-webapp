@@ -4,7 +4,6 @@ import ReviewedMovieList from "@components/ui/reviewdMovieList/MovieList";
 
 suite("ReviewedMovieList component", () => {
   test("renders most reviewed movies correctly", () => {
-    // Mock top reviewed movies data
     const topReviewedMovies = [
       {
         movieTitle: "Movie 1",

@@ -1,11 +1,10 @@
 import { suite, test, expect } from "vitest";
 import { render } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom"; // Import MemoryRouter
+import { MemoryRouter } from "react-router-dom";
 import SearchMovieCard from "@components/ui/searchMovieCard/MovieCard";
 
 suite("SearchMovieCard component", () => {
   test("renders movie card correctly", () => {
-    // Mock movie data
     const movie = {
       title: "Test Movie",
       year: "2022",
@@ -13,7 +12,6 @@ suite("SearchMovieCard component", () => {
       description: "This is a test movie description.",
     };
 
-    // Render the SearchMovieCard component with the mocked movie data inside MemoryRouter
     const { getByText, getByAltText } = render(
       <MemoryRouter>
         <SearchMovieCard

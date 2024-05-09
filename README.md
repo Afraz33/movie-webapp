@@ -70,7 +70,7 @@ You can access the app with this url on your device.
 http://localhost:5000/
 ```
 
-## Testing
+# Testing
 
 ### Frontend
 1. To test frontend, navigate to frontend folder:

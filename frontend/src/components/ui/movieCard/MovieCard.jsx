@@ -35,9 +35,9 @@ function MovieCard({ movie, imageIndex }) {
         <p className={movieCardStyles.movieYear}>{movie.year}</p>
       </div>
       {/* Bookmark icon */}
-      <div className={movieCardStyles.bookmarkIcon}>
+      {/* <div className={movieCardStyles.bookmarkIcon}>
         <BsBookmarkPlusFill style={{ width: "30px", height: "30px" }} />
-      </div>
+      </div> */}
     </div>
   );
 }

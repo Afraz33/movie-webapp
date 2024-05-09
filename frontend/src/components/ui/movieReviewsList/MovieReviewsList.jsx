@@ -27,6 +27,10 @@ function MovieReviewsList({ movieTitle }) {
           movieTitle
         )}`
       );
+      if (response.status === 404) {
+        setReviews([]);
+        return;
+      }
       if (!response.ok) {
         throw new Error("Failed to fetch reviews");
       }

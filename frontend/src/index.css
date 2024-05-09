@@ -77,7 +77,12 @@ html {
 }
 
 .swiper {
-  z-index: 0;
+  z-index: 9999;
+}
+
+.swiper-pagination {
+  position: relative !important;
+  margin-top: 20px;
 }
 
 /*     ======> Scroll bar CSS styles <======= */

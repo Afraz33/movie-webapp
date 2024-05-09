@@ -71,22 +71,23 @@ function MovieList({ movies }) {
           },
         }}
         pagination={{ clickable: true }}
-        centeredSlides={true}
-        navigation
+        // centeredSlides={true}
+
         loop={true}
+        initialSlide={3}
         autoplay={{ delay: 3000 }}
       >
-        {movies.length === 0 && (
-          <div className={AllMoviesListStyles.noMovies}>
-            <h2 style={{ color: "gray" }}>No Movies Exist</h2>
-          </div>
-        )}
-        {movies?.map((movie, i) => (
+        {movies.map((movie, i) => (
           <SwiperSlide key={i} className={AllMoviesListStyles.SwiperSlide}>
             <MovieCard movie={movie} imageIndex={i} />
           </SwiperSlide>
         ))}
       </Swiper>
+      {movies.length === 0 && (
+        <div className={AllMoviesListStyles.noMovies}>
+          <h2 style={{ color: "gray" }}>No Movies Exist</h2>
+        </div>
+      )}
     </div>
   );
 }

@@ -31,7 +31,7 @@ Before running the application, ensure you have Docker Desktop installed on your
 
 2. Start Docker Desktop.
 
-3.To run the containers, use the following command inside project directory:
+3. To run the containers, use the following command inside project directory:
 
 ```bash
 docker-compose up -d
@@ -44,6 +44,7 @@ http://localhost:5000/
 ```
 
 ## Testing
+
 ### Frontend
 1. To test frontend, navigate to frontend folder:
 ```bash
@@ -58,6 +59,8 @@ npm i
 ```bash
 npm run test
 ```
+
+
 ### Backend
 1. To test fbackend, navigate to backend folder:
 ```bash
